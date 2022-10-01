@@ -2,23 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTime : TimeCurrency
+public class PlayerTime : MonoBehaviour
 {
-    public float currPlayerTime;
+    public static float currPlayerTime = 10f;
 
-    public override float getCurrTime()
-    {
-        return currPlayerTime;
-    }
-
-    public override void resetTime()
+    public static void ResetTime()
     {
         currPlayerTime = 10f;
     }
 
-    public override float decreaseTime(float d)
+    public static float DecreaseTime(float d)
     {
-        if (checkDecrease(d))
+        if (CheckDecrease(d))
         {
             currPlayerTime -= d;
             return d;
@@ -29,7 +24,7 @@ public class PlayerTime : TimeCurrency
         }
     }
 
-    public override bool checkDecrease(float d)
+    public static bool CheckDecrease(float d)
     {
         return d <= currPlayerTime ? true : false;
     }
