@@ -18,6 +18,6 @@ public class TimeConsuming : MonoBehaviour
 
     bool IsValidTimeUse()
     {
-        return GameState.IsPlayerTurn ? PlayerTime.CheckDecrease(TimeCost) : EnemyTime.CheckDecrease(TimeCost);
+        return GameManager.IsPlayerTurn ? PlayerTime.CheckDecrease(TimeCost) : EnemyTime.CheckDecrease(TimeCost);
     }
 }
