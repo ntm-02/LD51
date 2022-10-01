@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class TimeConsuming : MonoBehaviour
 {
-    float TimeCost = 0f;
+    [SerializeField] float TimeCost = 0f;
 
-    bool CheckValidTime()
+    void SetTimeCost(float t)
+    {
+        TimeCost = t;
+    }
+
+    float GetTimeCost()
+    {
+        return TimeCost;
+    }
+
+    bool IsValidTimeUse()
     {
         return GameState.IsPlayerTurn ? PlayerTime.CheckDecrease(TimeCost) : EnemyTime.CheckDecrease(TimeCost);
     }
