@@ -4,7 +4,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
 
-    public enum RotationStyle
+    /*public enum RotationStyle
     {
         ZERO,
         ONE,
@@ -30,12 +30,14 @@ public class Tile : MonoBehaviour
     public RotationStyle myRotStyle;
 
 
-    public int rotationAngle;
+    public int rotationAngle;*/
 
-    public Tile(RotationStyle style)
+    public int height;
+
+    public Tile(/*RotationStyle style*/int height)
     {
 
-        switch (style)
+        /*switch (style)
         {
             case RotationStyle.FOUR:
                 conns = new bool[] { true, true, true, true };
@@ -56,7 +58,7 @@ public class Tile : MonoBehaviour
                 conns = new bool[] { true, false, true, false };
                 break;
 
-        }
+        }*/
 
     }
 }
