@@ -97,4 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a887428638406d842893cebf57943322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathFromRoot: []
   height: 16
+  gridPos: {x: 0, y: 0}
+  pathCost: 0
+  travelCost: 60000
