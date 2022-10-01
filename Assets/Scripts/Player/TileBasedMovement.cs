@@ -36,12 +36,7 @@ public class TileBasedMovement : MonoBehaviour
         }
 
     }
-
-    public void GoToTile()
-    {
-        StartCoroutine(MovePlayer(Vector3.up));
-    }
-    private IEnumerator MovePlayer(Vector3 direction)
+    public IEnumerator MovePlayer(Vector3 direction)
     {
         isMoving = true;
         float elapsedTime = 0;
