@@ -36,6 +36,10 @@ public class TileBasedMovement : MonoBehaviour
             StartCoroutine(MovePlayer(Vector3.right));
         }
 
+        if (PlayerTime.currPlayerTime == 0f) // remove this for final game, grants infinite moves by reseting time
+        {
+            PlayerTime.ResetTime();
+        }
     }
     public IEnumerator MovePlayer(Vector3 direction)
     {
