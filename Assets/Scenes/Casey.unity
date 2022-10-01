@@ -502,7 +502,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1231134922}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf621a503a3478342b8d6ada3a9975a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 34a288d3ef969d54ab7732b141793ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   width: 25
@@ -512,13 +512,13 @@ MonoBehaviour:
   - {fileID: 3245699602799205100, guid: 3a36281b51ff88f4a9968b5921592d6c, type: 3}
   - {fileID: 1473240877623288605, guid: f9da9d2aa22619d4998493ce07f65c24, type: 3}
   - {fileID: 2532380586404312700, guid: d25bb9bf7f4705c49aa6382a5b4f6a17, type: 3}
-  tiles: []
   PerlinScale: 2
-  offset: 0
   offsetMultiplier: 23
   change:
+    serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 3
+      time: 0
       value: 0
       inSlope: 1
       outSlope: 1
@@ -526,7 +526,8 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    - time: 1
+    - serializedVersion: 3
+      time: 1
       value: 1
       inSlope: 1
       outSlope: 1
