@@ -81,7 +81,7 @@ public class TerrainGen : MonoBehaviour
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                ret[x, y] = tiles[(int)(tiles.Count*Mathf.Clamp(change.Evaluate(CalcNoise(x,y)), 0, 1))];
+                ret[x, y] = tiles[(int)(tiles.Count*Mathf.Clamp(change.Evaluate(CalcNoise(x,y)), 0, .99f))];
             }
         }
         
