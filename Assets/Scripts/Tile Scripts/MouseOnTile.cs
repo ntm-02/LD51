@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MouseOnTile : MonoBehaviour
+public class MouseOnTile : MonoBehaviour, IPointerEnterHandler
 {
-    private int mark = 0;
-    public void GotToTile()
+    /*public void GotToTile()
     {
         StartCoroutine(FindObjectOfType<TileBasedMovement>().MovePlayer(Vector3.up));
-    }
+    }*/
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +21,17 @@ public class MouseOnTile : MonoBehaviour
         
     }
 
-    public void incrementMark()
+   
+    // on mouse hover, this will generate a path to the destination
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        mark++;
+        // clears the previous path trail
+        FindObjectOfType<TilePathFinding>().clearPathTrail();
+        // generating the new path
+        List<GameObject> path = FindObjectOfType<TilePathFinding>().FindShortestPath(Vector2.zero, transform.parent.parent.GetComponent<Tile>().gridPos);
+        foreach (GameObject g in path)
+        {
+            g.GetComponent<SpriteRenderer>().color = Color.gray;
+        }
     }
 }
