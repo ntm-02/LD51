@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3146814476764417487}
   m_Layer: 0
   m_Name: mountain
-  m_TagString: Untagged
+  m_TagString: UnWalkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,4 +101,4 @@ MonoBehaviour:
   height: 16
   gridPos: {x: 0, y: 0}
   pathCost: 0
-  travelCost: 60000
+  travelCost: 1
