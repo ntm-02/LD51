@@ -37,6 +37,10 @@ public class TileBasedMovement : MonoBehaviour
 
     }
 
+    public void GoToTile()
+    {
+        StartCoroutine(MovePlayer(Vector3.up));
+    }
     private IEnumerator MovePlayer(Vector3 direction)
     {
         isMoving = true;
@@ -51,6 +55,7 @@ public class TileBasedMovement : MonoBehaviour
             yield return null;
         }
 
+        // if we don't land exactly in the middle of a tile, this will make sure you end up there
         transform.position = newPos;
         isMoving = false;
     }
