@@ -2,23 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmenyTime : TimeCurrency
+public class EmenyTime : MonoBehaviour
 {
-    public float currEnemyTime;
+    public static float currEnemyTime = 10f;
 
-    public override float getCurrTime()
-    {
-        return currEnemyTime;
-    }
-
-    public override void resetTime()
+    public static void ResetTime()
     {
         currEnemyTime = 10f;
     }
 
-    public override float decreaseTime(float d)
+    public static float DecreaseTime(float d)
     {
-        if (checkDecrease(d))
+        if (CheckDecrease(d))
         {
             currEnemyTime -= d;
             return d;
@@ -29,7 +24,7 @@ public class EmenyTime : TimeCurrency
         }
     }
 
-    public override bool checkDecrease(float d)
+    public static bool CheckDecrease(float d)
     {
         return d <= currEnemyTime ? true : false;
     }
