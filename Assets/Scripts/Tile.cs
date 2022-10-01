@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Tile : MonoBehaviour
 {
-
+    public List<GameObject> pathFromRoot = new();
     /*public enum RotationStyle
     {
         ZERO,
@@ -33,6 +33,9 @@ public class Tile : MonoBehaviour
     public int rotationAngle;*/
 
     public int height;
+    public Vector2 gridPos;
+    public int pathCost;
+    public int travelCost;
 
     public Tile(/*RotationStyle style*/int height)
     {

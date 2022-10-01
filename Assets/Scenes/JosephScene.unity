@@ -3032,6 +3032,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 249470920, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+      propertyPath: m_Name
+      value: Player sprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 249470923, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 249470923, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1564667731
+      objectReference: {fileID: 0}
     - target: {fileID: 4516344708009804129, guid: b6f08198ea135a441bf36565f217a227, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3039,6 +3051,14 @@ PrefabInstance:
     - target: {fileID: 4516344708009804131, guid: b6f08198ea135a441bf36565f217a227, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516344708009804131, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516344708009804131, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4516344708009804131, guid: b6f08198ea135a441bf36565f217a227, type: 3}
       propertyPath: m_LocalPosition.x
