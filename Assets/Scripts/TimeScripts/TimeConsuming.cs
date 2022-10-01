@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class TimeConsuming : MonoBehaviour
 {
-    // any interactable object
-    // 
-
     float TimeCost = 0f;
 
     bool CheckValidTime()
     {
-        return PlayerTime.CheckDecrease(TimeCost);
+        return GameState.IsPlayerTurn ? PlayerTime.CheckDecrease(TimeCost) : EnemyTime.CheckDecrease(TimeCost);
     }
 }

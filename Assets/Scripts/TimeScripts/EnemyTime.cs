@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmenyTime : MonoBehaviour
+public class EnemyTime : MonoBehaviour
 {
     public static float currEnemyTime = 10f;
 
