@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TileBasedMovement : MonoBehaviour
 {
+    //PlayerTime timeObj = new PlayerTime();
     private bool isMoving = false;
     private Vector3 origPos;
     private Vector3 newPos;
@@ -12,25 +13,25 @@ public class TileBasedMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) && !isMoving)
+        if (Input.GetKey(KeyCode.W) && !isMoving && (PlayerTime.DecreaseTime(1f) != -1f))
         {
             StartCoroutine(MovePlayer(Vector3.up));
         }
-        if (Input.GetKey(KeyCode.A) && !isMoving)
+        if (Input.GetKey(KeyCode.A) && !isMoving && (PlayerTime.DecreaseTime(1f) != -1f))
         {
             StartCoroutine(MovePlayer(Vector3.left));
         }
-        if (Input.GetKey(KeyCode.S) && !isMoving)
+        if (Input.GetKey(KeyCode.S) && !isMoving && (PlayerTime.DecreaseTime(1f) != -1f))
         {
             StartCoroutine(MovePlayer(Vector3.down));
         }
-        if (Input.GetKey(KeyCode.D) && !isMoving)
+        if (Input.GetKey(KeyCode.D) && !isMoving && (PlayerTime.DecreaseTime(1f) != -1f))
         {
             StartCoroutine(MovePlayer(Vector3.right));
         }
