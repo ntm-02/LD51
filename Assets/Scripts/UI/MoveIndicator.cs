@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// credit : https://www.youtube.com/watch?v=iD1_JczQcFY&t=1004s&ab_channel=CodeMonkey 
 
 public class MoveIndicator : MonoBehaviour
 {
@@ -14,19 +13,29 @@ public class MoveIndicator : MonoBehaviour
         
     }
 
-    // Spawns the Popup
-    public static MoveIndicator Create(Vector3 position)
-    {
-        Transform moveIndicatorTransform = Instantiate(GameAssetsContainer.i.pfMoveIndicator, position, Quaternion.identity);
-        MoveIndicator moveIndicator = moveIndicatorTransform.GetComponent<MoveIndicator>();
-        moveIndicator.Setup();
-        return moveIndicator;
-    }
 
     // Decides if to do white or red
-    public void Setup()
+    public void Setup(Transform indicator)
     {
-        // if enemy is in tile swap animation to red
+        // if enemy is in tile swap animation to red\
+        Animator anim = indicator.gameObject.GetComponent<Animator>();
+        // if condition
+        Tile tileScript = GetComponent<Tile>(); // ????
+        if (tileScript == null)
+        {
+            Debug.Log("tile.cs not found in parent of parent of the tile button");
+        }
+        else
+        {
+            if (tileScript.hasEnemy)
+            {
+                anim.SetTrigger("AttackIndicator");
+            }
+            else
+            {
+                anim.SetTrigger("MoveIndicator");
+            }
+        }
     }
 
     public void SpawnIndicator()
@@ -34,6 +43,7 @@ public class MoveIndicator : MonoBehaviour
         //Debug.Log("Is null? : " + transform.position);
         Vector3 createPos = new Vector3 (transform.position.x, (transform.position.y + 0.8f), transform.position.z);
         indicator = Instantiate(pfMoveIndicator, createPos, Quaternion.identity);
+        Setup(indicator);
     }
 
     public void DestroyIndicator()
