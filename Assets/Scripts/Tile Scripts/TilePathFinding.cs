@@ -51,7 +51,7 @@ public class TilePathFinding : MonoBehaviour
 
         List<GameObject> farthest = new() { };
         farthest.AddRange(notNull(adjacentToPoint(grid, playerpos)));
-        print(farthest.Count);
+        //print(farthest.Count);
 
         HashSet<GameObject> used = new();
         foreach (GameObject g in grid)
