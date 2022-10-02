@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     private static Vector2 _PlayerGridPos = Vector2.zero;
 
-    public Vector2 PlayerGridPos
+    public static Vector2 PlayerGridPos
     {
         get => _PlayerGridPos;
         set

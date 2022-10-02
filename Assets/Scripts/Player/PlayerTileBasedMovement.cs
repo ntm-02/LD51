@@ -10,7 +10,7 @@ public class PlayerTileBasedMovement : MonoBehaviour
     private Vector3 newPos;
     private float timeToMove = 0.2f;
     private GameObject[,] grid;
-    private static Vector2 gridPosition = Vector2.zero;
+    private static Vector2 gridPosition = GameManager.PlayerGridPos;
 
 
 
