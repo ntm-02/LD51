@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour
         enemyTypes = FetchPrefabs();
         // wait an arbitrary amount of time so that the map exists when we try to access it
         yield return new WaitForSeconds(0.5f);
-        endTileGameObject = tilePathFinding.getGrid()[0, 0];
+        endTileGameObject = GameManager.EndingTile.transform.gameObject;
 
         optimalPlayerPath = tilePathFinding.FindShortestPath(GameManager.PlayerGridPos, endTileGameObject.transform.position);
         GameObject[,] grid = FindObjectOfType<TilePathFinding>().getGrid();
