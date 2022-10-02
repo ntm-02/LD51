@@ -62,7 +62,7 @@ public class TilePathFinding : MonoBehaviour
 
 
         List<GameObject> farthest = new() { };
-        farthest.AddRange(adjacentToPoint(grid, playerpos));
+        farthest.AddRange(notNull(adjacentToPoint(grid, playerpos)));
         foreach (GameObject g in farthest)
         {
             //print(g.GetComponent<Tile>().gridPos);
@@ -94,7 +94,7 @@ public class TilePathFinding : MonoBehaviour
             //convert farthest to set to disallow dupes.
             HashSet<GameObject> unique = new HashSet<GameObject>(farthest);
 
-            foreach (GameObject g in Enumerable.Except(adjacentToPoint(grid, active.GetComponent<Tile>().gridPos),used))
+            foreach (GameObject g in Enumerable.Except(notNull(adjacentToPoint(grid, active.GetComponent<Tile>().gridPos)),used))
             {
                 //set the path
                 g.GetComponent<Tile>().pathFromRoot.AddRange(active.GetComponent<Tile>().pathFromRoot);
@@ -153,28 +153,41 @@ public class TilePathFinding : MonoBehaviour
         }
     }
 
-    public GameObject[] adjacentToPoint(GameObject[,] actingArray, Vector2 point)
+    public static List<T> notNull<T>(IEnumerable<T> input) {
+        List<T> ret = new();
+
+        foreach (T b in input) {
+            if (b != null) {
+                ret.Add(b);
+            }
+        }
+
+        return ret;
+    }
+
+
+    public static GameObject[] adjacentToPoint(GameObject[,] actingArray, Vector2 point)
     {
-        List<GameObject> ret = new();
+        GameObject [] ret = new GameObject[4];
         //x column from bot left
         //y row from bot left
         if (point.x != 0)
         {
-            ret.Add(actingArray[(int)point.x - 1, (int)point.y]);
+            ret[0] = (actingArray[(int)point.x - 1, (int)point.y]);
         }
         if (point.x != actingArray.GetLength(0) - 1)
         {
-            ret.Add(actingArray[(int)point.x + 1, (int)point.y]);
+            ret[1] = (actingArray[(int)point.x + 1, (int)point.y]);
         }
         if (point.y != 0)
         {
-            ret.Add(actingArray[(int)point.x, (int)point.y - 1]);
+            ret[2] =(actingArray[(int)point.x, (int)point.y - 1]);
         }
         if (point.y != actingArray.GetLength(1) - 1)
         {
-            ret.Add(actingArray[(int)point.x, (int)point.y + 1]);
+            ret[3] =(actingArray[(int)point.x, (int)point.y + 1]);
         }
 
-        return ret.ToArray();
+        return ret;
     }
 }
