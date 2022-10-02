@@ -17,15 +17,28 @@ public class EnemyManager : MonoBehaviour
         enemyTypes = FetchPrefabs();
         // wait an arbitrary amount of time so that the map exists when we try to access it
         yield return new WaitForSeconds(0.5f);
-        endTileGameObject = tilePathFinding.getGrid()[10, 10];
+        endTileGameObject = tilePathFinding.getGrid()[0, 0];
 
         optimalPlayerPath = tilePathFinding.FindShortestPath(GameManager.PlayerGridPos, endTileGameObject.transform.position);
+        GameObject[,] grid = FindObjectOfType<TilePathFinding>().getGrid();
+
+        foreach (GameObject tile in grid)
+        {
+            Debug.Log("entered gameobject loop for non-path tiles");
+            if (!optimalPlayerPath.Contains(tile))
+            {
+                InstantiateRandomEnemy(tile);
+                Debug.Log("Instantiated non-path enemy");
+            }
+        }
 
         foreach (GameObject tile in optimalPlayerPath)
         {
-            GameObject[] playerPathAdjacentTiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), tile.gameObject.transform.position);
+            GameObject[] playerPathAdjacentTiles = TilePathFinding.adjacentToPoint(grid, tile.gameObject.transform.position);
             InstantiateRandomEnemy(playerPathAdjacentTiles);
+            Debug.Log("instantiated path enemy");
         }
+
 
         // calculate the shortest path from the player to the exit
         // along that path, randomly spawn enemies
@@ -34,40 +47,28 @@ public class EnemyManager : MonoBehaviour
         // set an offset bias to populate enemies around the path
     }
 
+    private void InstantiateRandomEnemy(GameObject tile)
+    {
+        int randomVal = UnityEngine.Random.Range(0, 20);
+        if (randomVal == 1)
+        {
+            Instantiate(enemyTypes[UnityEngine.Random.Range(0, enemyTypes.Count)], tile.transform.position, Quaternion.identity);
+        }
+    }
+
     private void InstantiateRandomEnemy(GameObject[] playerPathAdjacentTiles)
     {
         int randomAdjacentTileIndex = UnityEngine.Random.Range(0, 4);
         GameObject selectedPlayerPathAdjacentTile = null;
-        
-        Debug.Log($"playerPathAdjacentTiles Length: {playerPathAdjacentTiles.Length}");
-        Debug.Log($"Selected random adjacent tile index: {randomAdjacentTileIndex}");
-        
-        try
-        {
-            selectedPlayerPathAdjacentTile = playerPathAdjacentTiles[randomAdjacentTileIndex];
 
-        }
-        catch (IndexOutOfRangeException ex)
-        {
-            // if the tile doesn't exist, just run the method again to get a new random index
-            Debug.Log($"Index was out of bounds: {randomAdjacentTileIndex}");
-            InstantiateRandomEnemy(playerPathAdjacentTiles);
-        }
+        selectedPlayerPathAdjacentTile = playerPathAdjacentTiles[randomAdjacentTileIndex];
 
-
+        if (selectedPlayerPathAdjacentTile is null) InstantiateRandomEnemy(playerPathAdjacentTiles); // if the tile is null run the method again to get a new random tile index
 
         int randomVal = UnityEngine.Random.Range(0, 2);
-        //Debug.Log($"Random value: {randomVal}");
         if (randomVal > 0)
         {
-            //Debug.Log("instantiating enemy");
-            // do a better job of randomizing this
-
             Instantiate(enemyTypes[UnityEngine.Random.Range(0, enemyTypes.Count)], selectedPlayerPathAdjacentTile.transform.position, Quaternion.identity);
-        }
-        else
-        {
-            //Debug.Log("not instantiating enemy");
         }
     }
 
@@ -76,7 +77,7 @@ public class EnemyManager : MonoBehaviour
         return new List<GameObject>()
         {
             // implement other enemies that have a load prefab method
-            // could make an interface like ISpawnable or something for spawning stuff 
+            // could make an interface like ISpawnable or something for spawning stuff other than enemies
             gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
             gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
             gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
