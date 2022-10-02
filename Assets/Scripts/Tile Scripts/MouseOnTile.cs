@@ -36,8 +36,8 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         FindObjectOfType<TilePathFinding>().clearPathTrail();
 
         // finding the tile with player on it
-        playerPos = FindObjectOfType<PlayerTileBasedMovement>().getGridPos();
-
+        //playerPos = FindObjectOfType<PlayerTileBasedMovement>().getGridPos();
+        playerPos = GameManager.PlayerGridPos;
         // generating the new path with playerPos as start and the tile that was hovered over as the end
         path = FindObjectOfType<TilePathFinding>().FindShortestPath(playerPos, transform.parent.parent.GetComponent<Tile>().gridPos);
 

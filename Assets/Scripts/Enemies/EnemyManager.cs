@@ -56,12 +56,12 @@ public class EnemyManager : MonoBehaviour
         {
             // implement other enemies that have a load prefab method
             // could make an interface like ISpawnable or something for spawning stuff 
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
         };
     }
 
