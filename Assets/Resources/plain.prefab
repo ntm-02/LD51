@@ -53,6 +53,7 @@ MonoBehaviour:
   pathCost: 0
   travelCost: 1
   hasPlayer: 0
+  type: 1
 --- !u!212 &5211918394241458139
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3245699602799205100
+--- !u!1 &4482807181509003399
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4920541096921061277}
-  - component: {fileID: 5591832115455778955}
-  - component: {fileID: 3146814476764417487}
-  - component: {fileID: 1530840841292971975}
+  - component: {fileID: 4503974806223820080}
+  - component: {fileID: 3275670745446456873}
+  - component: {fileID: 4279873621911262763}
+  - component: {fileID: 2614493156267508186}
   m_Layer: 0
-  m_Name: mountain
+  m_Name: wall tile
   m_TagString: UnWalkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4920541096921061277
+--- !u!4 &4503974806223820080
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3245699602799205100}
+  m_GameObject: {fileID: 4482807181509003399}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.0460863, y: -2.2682593, z: -0.060554273}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5591832115455778955
+--- !u!212 &3275670745446456873
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3245699602799205100}
+  m_GameObject: {fileID: 4482807181509003399}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,10 +72,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -781571171
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: acb685c59bd3fef409e8ce782a7a70ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7a5beecc75a34b64a866f11d8202e8c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,32 +86,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3146814476764417487
+--- !u!114 &4279873621911262763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3245699602799205100}
+  m_GameObject: {fileID: 4482807181509003399}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a887428638406d842893cebf57943322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathFromRoot: []
-  height: 16
+  height: 0
   gridPos: {x: 0, y: 0}
   pathCost: 0
-  travelCost: 1
+  travelCost: 0
   hasPlayer: 0
-  type: 2
---- !u!61 &1530840841292971975
+  type: 0
+--- !u!61 &2614493156267508186
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3245699602799205100}
+  m_GameObject: {fileID: 4482807181509003399}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -121,8 +121,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.33333334}
-    oldSize: {x: 0.64, y: 0.96}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

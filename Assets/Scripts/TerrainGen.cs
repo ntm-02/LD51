@@ -138,6 +138,25 @@ public class TerrainGen : MonoBehaviour
             }
         }
 
+
+        Structure startHut = (Resources.Load("starting") as GameObject).GetComponent<Structure>();
+        startHut.Start();
+
+
+        bool failed = true;
+        for (int x = 0; x < height; x++) {
+            //print(startHut.doesFitAtPoint(ret, new Vector2(x,0), false));
+                if (startHut.doesFitAtPoint(ret, new Vector2(0, x), false)) {
+                    ret = startHut.replaceStructTiles(ret, new Vector2(0, x));
+                    failed = false;
+                    break;
+                }
+                
+        }
+        if (failed) {
+            ret = CreateTerrain();
+        }
+
         return ret;
     }
 

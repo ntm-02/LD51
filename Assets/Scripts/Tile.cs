@@ -38,6 +38,12 @@ public class Tile : MonoBehaviour
     public int travelCost;
     public bool hasPlayer = false;
 
+    public enum TileType { 
+        water, plain, mountain
+    };
+
+    public TileType type;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
