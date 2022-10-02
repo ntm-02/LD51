@@ -97,7 +97,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
                 // player is currently moving
                 GameManager.IsPlayerMoving = true;
                 Vector2 playerPos = FindObjectOfType<PlayerTileBasedMovement>().getWorldPos();
-                print(playerPos);
+                //print(playerPos);
 
                 if (g.transform.position.y > playerPos.y)
                 {
