@@ -44,7 +44,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         }
     }
 
-    public IEnumerator IPointerClickHandler.OnPointerClick( PointerEventData eventData)
+    public void OnPointerClick( PointerEventData eventData)
     {
         foreach (GameObject g in path)
         {
@@ -53,7 +53,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
             {
                FindObjectOfType<TileBasedMovement>().moveUp();
             }
-            yield return new WaitForSeconds(1f);  // wait one second before moving the player again
+            //yield return new WaitForSeconds(1f);  // wait one second before moving the player again
             // "g" is above player, go up, if to the right, go right, etc?
             //print("changing color");
             
