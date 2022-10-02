@@ -2,27 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTileBasedMovement : MonoBehaviour
+public class EnemyTileBasedMovement : MonoBehaviour
 {
     private bool isMoving = false;
     private Vector3 origPos;
     private Vector3 newPos;
     private float timeToMove = 0.2f;
     private GameObject[,] grid;
-    private static Vector2 gridPosition = GameManager.PlayerGridPos;
+    private static Vector2 gridPosition = Vector2.zero; // change this later
 
 
-    public Vector2 getGridPos()
+    private Vector2 getGridPos()
     {
         return gridPosition;
     }
 
-    public Vector2 getWorldPos()
+    private Vector2 getWorldPos()
     {
         return new Vector2(transform.position.x, transform.position.y);
     }
 
-    public static void setGridPos(Vector2 newGridPos)
+    private static void setGridPos(Vector2 newGridPos)
     {
         gridPosition = newGridPos;
     }
@@ -30,33 +30,31 @@ public class PlayerTileBasedMovement : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        //transform.position = gridPosition;
-        //transform.position = grid[(int)gridPosition.x, (int)gridPosition.y].transform.position;  // trying something
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.1f);
         grid = FindObjectOfType<TilePathFinding>().getGrid();
-        transform.position = grid[(int)gridPosition.x, (int)gridPosition.y].transform.position;
+        gridPosition = grid[1, 1].transform.position;       // sets the gridPosition to [1,1] initially
     }
 
 
     public void moveUp()
     {
-        StartCoroutine(MovePlayer(grid[(int)gridPosition.x, (int)gridPosition.y + 1].transform.position - transform.position));
+        StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y + 1].transform.position - transform.position));
         gridPosition += Vector2.up;
     }
 
     public void moveRight()
     {
-        StartCoroutine(MovePlayer(grid[(int)gridPosition.x + 1, (int)gridPosition.y].transform.position - transform.position));
+        StartCoroutine(MoveEnemy(grid[(int)gridPosition.x + 1, (int)gridPosition.y].transform.position - transform.position));
         gridPosition += Vector2.right;
     }
     public void moveLeft()
     {
-        StartCoroutine(MovePlayer(grid[(int)gridPosition.x - 1, (int)gridPosition.y].transform.position - transform.position));
+        StartCoroutine(MoveEnemy(grid[(int)gridPosition.x - 1, (int)gridPosition.y].transform.position - transform.position));
         gridPosition += Vector2.left;
     }
     public void moveDown()
     {
-        StartCoroutine(MovePlayer(grid[(int)gridPosition.x, (int)gridPosition.y - 1].transform.position - transform.position));
+        StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y - 1].transform.position - transform.position));
         gridPosition += Vector2.down;
     }
 
@@ -69,10 +67,10 @@ public class PlayerTileBasedMovement : MonoBehaviour
             PlayerTime.ResetTime();
         }
         //grid = FindObjectOfType<TilePathFinding>().getGrid();
-        GameManager.PlayerGridPos = gridPosition; // updating the game manager's player grid position
+        //GameManager.EnemyGridPos = gridPosition; // updating the game manager's player grid position
 
     }
-    public IEnumerator MovePlayer(Vector3 direction)
+    public IEnumerator MoveEnemy(Vector3 direction)
     {
         // decreases player time by 1 second for each tile moved
         PlayerTime.DecreaseTime(1f);

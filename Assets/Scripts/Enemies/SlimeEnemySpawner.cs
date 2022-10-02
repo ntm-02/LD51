@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeEnemy : MonoBehaviour, IKillable 
+public class SlimeEnemySpawner : MonoBehaviour, IKillable 
 {
     public void Die()
     {
