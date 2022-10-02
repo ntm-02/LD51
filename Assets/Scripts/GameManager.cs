@@ -21,7 +21,11 @@ public class GameManager : MonoBehaviour
     public Vector2 PlayerGridPos
     {
         get => _PlayerGridPos;
-        set => _PlayerGridPos = value;
+        set
+        {
+            _PlayerGridPos = value;
+            PlayerTileBasedMovement.setGridPos(value);
+        }
     }
 
     [SerializeField] private GameObject DeathCanvas;
