@@ -46,27 +46,11 @@ public class TilePathFinding : MonoBehaviour
     // returns the shortest path as a list of GameObjects that are tiles in the grid
     public List<GameObject> FindShortestPath(Vector2 playerpos, Vector2 targetpos)
     {
-        //GameObject[,] grid = FindObjectOfType<TerrainGen>().CreateTerrain();
-        //grid[0, 0].GetComponent<SpriteRenderer>().color = Color.black;
-        /* for (int col = 0; col < grid.GetLength(0); col++)
-         {
-             for (int row = 0; row < grid.GetLength(1); row++)
-             {
-                 grid[col, row].GetComponent<SpriteRenderer>().color = Color.white;  // this needs to be reset each time
-                //PrefabUtility.UnpackPrefabInstance(grid[col, row], PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
-                 //print(grid[col, row].name);
-             }
-         }
-        //grid[6, 2].transform.GetComponent<SpriteRenderer>().color = Color.black;
-        //print(grid[6, 2].GetComponent<SpriteRenderer>().color);*/
-
+        //print("player: " + playerpos + " target: " + targetpos);
 
         List<GameObject> farthest = new() { };
         farthest.AddRange(notNull(adjacentToPoint(grid, playerpos)));
-        foreach (GameObject g in farthest)
-        {
-            //print(g.GetComponent<Tile>().gridPos);
-        }
+        print(farthest.Count);
 
         HashSet<GameObject> used = new();
         foreach (GameObject g in grid)
@@ -77,7 +61,7 @@ public class TilePathFinding : MonoBehaviour
             }
         }
 
-        Comparer<GameObject> sorter = Comparer<GameObject>.Create((a, b) => a.GetComponent<Tile>().pathCost - b.GetComponent<Tile>().pathCost);
+        Comparer<GameObject> sorter = Comparer<GameObject>.Create((a, b) => a.GetComponent<Tile>().pathFromRoot.Count - b.GetComponent<Tile>().pathFromRoot.Count);
 
         farthest.Sort(sorter);
 
@@ -94,7 +78,7 @@ public class TilePathFinding : MonoBehaviour
             //convert farthest to set to disallow dupes.
             HashSet<GameObject> unique = new HashSet<GameObject>(farthest);
 
-            foreach (GameObject g in Enumerable.Except(notNull(adjacentToPoint(grid, active.GetComponent<Tile>().gridPos)),used))
+            foreach (GameObject g in Enumerable.Except(notNull(adjacentToPoint(grid, active.GetComponent<Tile>().gridPos)), used))
             {
                 //set the path
                 g.GetComponent<Tile>().pathFromRoot.AddRange(active.GetComponent<Tile>().pathFromRoot);
@@ -104,8 +88,7 @@ public class TilePathFinding : MonoBehaviour
                 //add to unique if not already used.
                 if (!used.Contains(g))
                 {
-                    g.GetComponent<Tile>().pathCost = active.GetComponent<Tile>().pathCost +/* ( (int)Vector2.Angle(targetpos, active.GetComponent<Tile>().gridPos) */
-                         active.GetComponent<Tile>().travelCost;
+                    //g.GetComponent<Tile>().pathCost = active.GetComponent<Tile>().pathCost + active.GetComponent<Tile>().travelCost;
                     unique.Add(g);
                     used.Add(g);
                 }
@@ -133,9 +116,13 @@ public class TilePathFinding : MonoBehaviour
             //print(g.GetComponent<Tile>().gridPos);
         }
         resetUsed(used);
-        foreach (GameObject g in temp)
+        foreach (GameObject g in grid)
         {
-            //print(g.GetComponent<Tile>().gridPos);
+            if (g.GetComponent<Tile>().pathFromRoot.Count > 0)
+            {
+                print(g.GetComponent<Tile>().pathFromRoot.Count);
+            }
+            //print(g.GetComponent<Tile>().pathFromRoot.Count);
         }
         return temp;
             //FindObjectOfType<TerrainGen>().DisplayTerrain();
@@ -143,7 +130,7 @@ public class TilePathFinding : MonoBehaviour
 
     private void resetUsed(HashSet<GameObject> used)
     {
-        foreach (GameObject g in used)
+        foreach (GameObject g in grid)
         {
             g.GetComponent<Tile>().pathFromRoot.Clear();
         }

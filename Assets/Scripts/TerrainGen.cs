@@ -89,50 +89,47 @@ public class TerrainGen : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                GameObject g = ret[x, y];
-                int th = g.GetComponent<Tile>().height;
+                GameObject selection = ret[x, y];
+                int tileHeight = selection.GetComponent<Tile>().height;
 
-                GameObject[] adj = TilePathFinding.notNull(TilePathFinding.adjacentToPoint(ret, g.GetComponent<Tile>().gridPos)).ToArray();
+                GameObject[] adjacentGOs = TilePathFinding.notNull(TilePathFinding.adjacentToPoint(ret, selection.GetComponent<Tile>().gridPos)).ToArray();
 
-                List<GameObject> li = new();
-                li.AddRange(from a in adj let c = a.GetComponent<Tile>() where c.height >= th select a);//up or down
+                List<GameObject> adjacentSameOrGreaterHeight = new();
+                adjacentSameOrGreaterHeight.AddRange(from singleGO in adjacentGOs let singlesTile = singleGO.GetComponent<Tile>() where singlesTile.height >= tileHeight select singleGO);//up or down
 
                 Quaternion zero = new();
                 zero.eulerAngles = Vector3.zero;
 
-                Tile m = g.GetComponent<Tile>();
+                Tile selectionTile = selection.GetComponent<Tile>();
 
                 if (
-                    (li.Count == 2 
-                        && (TilePathFinding.notNull(TilePathFinding.adjacentToPoint(ret, m.gridPos)).Count > 3)
-                    ) || (li.Count == 1 
-                        && (TilePathFinding.notNull(TilePathFinding.adjacentToPoint(ret, m.gridPos)).Count <= 3)
+                    (adjacentSameOrGreaterHeight.Count == 2 
+                        && (TilePathFinding.notNull(TilePathFinding.adjacentToPoint(ret, selectionTile.gridPos)).Count > 3)
+                    ) || (adjacentSameOrGreaterHeight.Count == 1 
+                        && (TilePathFinding.notNull(TilePathFinding.adjacentToPoint(ret, selectionTile.gridPos)).Count <= 3)
                     )
                 )
-                {
-                    ret[x, y].GetComponent<SpriteRenderer>().sprite = borders[(int)m.height/16].GetComponent<SpriteRenderer>().sprite;
+                {                                                                                      //v magic number only works because curr heights are 0,8,16
+                    ret[x, y].GetComponent<SpriteRenderer>().sprite = borders[(int)selectionTile.height/16].GetComponent<SpriteRenderer>().sprite;
 
-                    Tile[] neighbors = (from go in TilePathFinding.adjacentToPoint(ret, m.gridPos) let r = go == null ? null : go.GetComponent<Tile>() select r).ToArray();
-
+                    Tile[] neighbors = (from gameObj in TilePathFinding.adjacentToPoint(ret, selectionTile.gridPos) let result = gameObj == null ? null : gameObj.GetComponent<Tile>() select result).ToArray();
                     //left, right, bottom, top lol
-
-                    int[] states = new int[4];
 
 
 
                     //up is null, right is good OR both are good 
-                    if ((neighbors[1] == null && (neighbors[3] != null && neighbors[3].height == m.height)) || (neighbors[3] == null && (neighbors[1] != null && neighbors[1].height == m.height)) || (neighbors[3] != null && neighbors[3].height == m.height && neighbors[1] != null && neighbors[1].height == m.height)) {
+                    if ((neighbors[1] == null && (neighbors[3] != null && neighbors[3].height == selectionTile.height)) || (neighbors[3] == null && (neighbors[1] != null && neighbors[1].height == selectionTile.height)) || (neighbors[3] != null && neighbors[3].height == selectionTile.height && neighbors[1] != null && neighbors[1].height == selectionTile.height)) {
                         ret[x, y].transform.Rotate(0, 0, 90);//top and right
                     } else//bottom null, right fine or bot right fine
-                    if ((neighbors[1] == null && (neighbors[2] != null && neighbors[2].height == m.height)) || (neighbors[2] == null && (neighbors[1] != null && neighbors[1].height == m.height)) || (neighbors[2] != null && neighbors[2].height == m.height && neighbors[1] != null && neighbors[1].height == m.height))
+                    if ((neighbors[1] == null && (neighbors[2] != null && neighbors[2].height == selectionTile.height)) || (neighbors[2] == null && (neighbors[1] != null && neighbors[1].height == selectionTile.height)) || (neighbors[2] != null && neighbors[2].height == selectionTile.height && neighbors[1] != null && neighbors[1].height == selectionTile.height))
                     {
                         ret[x, y].transform.Rotate(0, 0, 0);//bottom and right
                     } else//up null, left good or topleft fine
-                    if ((neighbors[0] == null && (neighbors[3] != null && neighbors[3].height == m.height)) || (neighbors[3] == null && (neighbors[0] != null && neighbors[0].height == m.height)) || (neighbors[3] != null && neighbors[3].height == m.height && neighbors[0] != null && neighbors[0].height == m.height))
+                    if ((neighbors[0] == null && (neighbors[3] != null && neighbors[3].height == selectionTile.height)) || (neighbors[3] == null && (neighbors[0] != null && neighbors[0].height == selectionTile.height)) || (neighbors[3] != null && neighbors[3].height == selectionTile.height && neighbors[0] != null && neighbors[0].height == selectionTile.height))
                     {
                         ret[x, y].transform.Rotate(0, 0, 180);//top and left
                     } else//bottom null, left good or left null, bottom good or botleft fine
-                    if ((neighbors[0] == null && (neighbors[2] != null && neighbors[2].height == m.height)) || (neighbors[2] == null && (neighbors[0] != null && neighbors[0].height == m.height)) || (neighbors[2] != null && neighbors[2].height == m.height && neighbors[0] != null && neighbors[0].height == m.height))
+                    if ((neighbors[0] == null && (neighbors[2] != null && neighbors[2].height == selectionTile.height)) || (neighbors[2] == null && (neighbors[0] != null && neighbors[0].height == selectionTile.height)) || (neighbors[2] != null && neighbors[2].height == selectionTile.height && neighbors[0] != null && neighbors[0].height == selectionTile.height))
                     {
                         ret[x, y].transform.Rotate(0, 0, 270);//bottom and left
                     }

@@ -461,6 +461,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5688488336428100067, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6f08198ea135a441bf36565f217a227, type: 3}
 --- !u!1 &576605187
@@ -847,6 +851,9 @@ MonoBehaviour:
   - {fileID: 3245699602799205100, guid: 3a36281b51ff88f4a9968b5921592d6c, type: 3}
   - {fileID: 1473240877623288605, guid: f9da9d2aa22619d4998493ce07f65c24, type: 3}
   - {fileID: 2532380586404312700, guid: d25bb9bf7f4705c49aa6382a5b4f6a17, type: 3}
+  borders:
+  - {fileID: 7939661693559420208, guid: 2efe72fd9456e14419669bfddb702f08, type: 3}
+  - {fileID: 3482840256000161352, guid: 4ed7660d6f7f3b24e878fe6a4cf8eb30, type: 3}
   PerlinScale: 2
   offsetMultiplier: 23
   change:
