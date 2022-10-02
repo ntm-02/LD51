@@ -49,13 +49,14 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
 
     public IEnumerator MouseClickCoroutine()
     {
-        if (!GameManager.IsPlayerMoving)
+        if (!GameManager.IsPlayerMoving)  // probably unneccessary
         {
             foreach (GameObject g in path)
             {
                 // player is currently moving
                 GameManager.IsPlayerMoving = true;
                 Vector2 playerPos = FindObjectOfType<PlayerTileBasedMovement>().getWorldPos();
+                //yield return new WaitForSeconds(0.5f); // wait one second before moving the player 
                 if (g.transform.position.y > playerPos.y)
                 {
                     FindObjectOfType<PlayerTileBasedMovement>().moveUp();
@@ -72,7 +73,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
                 {
                     FindObjectOfType<PlayerTileBasedMovement>().moveLeft();
                 }
-                yield return new WaitForSeconds(1f);  // wait one second before moving the player again
+                yield return new WaitForSeconds(0.5f); // wait one second before moving the player
             }
             GameManager.IsPlayerMoving = false;
         }
@@ -82,7 +83,10 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        StartCoroutine(MouseClickCoroutine());
+        if (!GameManager.IsPlayerMoving)
+        {
+            StartCoroutine(MouseClickCoroutine());
+        }
     }
 
    
