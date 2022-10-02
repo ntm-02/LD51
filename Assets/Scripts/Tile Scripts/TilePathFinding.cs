@@ -133,9 +133,13 @@ public class TilePathFinding : MonoBehaviour
             //print(g.GetComponent<Tile>().gridPos);
         }
         resetUsed(used);
-        foreach (GameObject g in temp)
+        foreach (GameObject g in grid)
         {
-            //print(g.GetComponent<Tile>().gridPos);
+            if (g.GetComponent<Tile>().pathFromRoot.Count > 0)
+            {
+                print(g.GetComponent<Tile>().pathFromRoot.Count);
+            }
+            //print(g.GetComponent<Tile>().pathFromRoot.Count);
         }
         return temp;
             //FindObjectOfType<TerrainGen>().DisplayTerrain();

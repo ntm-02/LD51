@@ -18,6 +18,12 @@ public class TileBasedMovement : MonoBehaviour
     {
         return gridPosition;
     }
+
+    public Vector2 getWorldPos()
+    {
+        return new Vector2(transform.position.x, transform.position.y);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +36,23 @@ public class TileBasedMovement : MonoBehaviour
         StartCoroutine(MovePlayer(grid[(int)gridPosition.x, (int)gridPosition.y + 1].transform.position - transform.position));
         gridPosition += Vector2.up;
     }
+
+    public void moveRight()
+    {
+        StartCoroutine(MovePlayer(grid[(int)gridPosition.x + 1, (int)gridPosition.y].transform.position - transform.position));
+        gridPosition += Vector2.right;
+    }
+    public void moveLeft()
+    {
+        StartCoroutine(MovePlayer(grid[(int)gridPosition.x - 1, (int)gridPosition.y].transform.position - transform.position));
+        gridPosition += Vector2.left;
+    }
+    public void moveDown()
+    {
+        StartCoroutine(MovePlayer(grid[(int)gridPosition.x, (int)gridPosition.y - 1].transform.position - transform.position));
+        gridPosition += Vector2.down;
+    }
+
     // Update is called once per frame
     void Update()
     {
