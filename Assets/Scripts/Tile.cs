@@ -36,6 +36,23 @@ public class Tile : MonoBehaviour
     public Vector2 gridPos;
     public int pathCost;
     public int travelCost;
+    public bool hasPlayer = false;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            hasPlayer = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            hasPlayer = false;
+        }
+    }
 
     public Tile(/*RotationStyle style*/int height)
     {

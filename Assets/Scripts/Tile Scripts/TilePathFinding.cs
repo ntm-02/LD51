@@ -23,6 +23,11 @@ public class TilePathFinding : MonoBehaviour
         }
     }
 
+    public GameObject[,] getGrid()
+    {
+        return grid;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -130,7 +135,7 @@ public class TilePathFinding : MonoBehaviour
         resetUsed(used);
         foreach (GameObject g in temp)
         {
-            print(g.GetComponent<Tile>().gridPos);
+            //print(g.GetComponent<Tile>().gridPos);
         }
         return temp;
             //FindObjectOfType<TerrainGen>().DisplayTerrain();

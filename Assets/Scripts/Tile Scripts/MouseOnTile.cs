@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MouseOnTile : MonoBehaviour, IPointerEnterHandler
+public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
+    GameObject playerTile;
+    List<GameObject> path;
+    Vector2 playerPos = Vector2.zero;
     /*public void GotToTile()
     {
         StartCoroutine(FindObjectOfType<TileBasedMovement>().MovePlayer(Vector3.up));
@@ -18,7 +21,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler
     // Update is called once per frame
     void Update()
     {
-        
+        //playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
     }
 
    
@@ -27,11 +30,61 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler
     {
         // clears the previous path trail
         FindObjectOfType<TilePathFinding>().clearPathTrail();
+
+        // finding the tile with player on it
+        //GameObject[,] tileGrid = FindObjectOfType<TilePathFinding>().getGrid();
+
+        playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
         // generating the new path
-        List<GameObject> path = FindObjectOfType<TilePathFinding>().FindShortestPath(Vector2.zero, transform.parent.parent.GetComponent<Tile>().gridPos);
+        path = FindObjectOfType<TilePathFinding>().FindShortestPath(playerPos, transform.parent.parent.GetComponent<Tile>().gridPos);
         foreach (GameObject g in path)
         {
+            
             g.GetComponent<SpriteRenderer>().color = Color.gray;
         }
     }
+
+
+
+    public IEnumerator OnMouseClick()
+    {
+        foreach (GameObject g in path)
+        {
+            playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
+            if (g.transform.position.y > playerPos.y)
+            {
+               FindObjectOfType<TileBasedMovement>().moveUp();
+            }
+            yield return new WaitForSeconds(1f);  // wait one second before moving the player again
+            // "g" is above player, go up, if to the right, go right, etc?
+            //print("changing color");
+            
+        }
+        print("clicked");
+       // yield return null;
+    }
+
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        StartCoroutine(MouseClickCoroutine());
+    }
+
+    private IEnumerator MouseClickCoroutine()
+    {
+        foreach (GameObject g in path)
+        {
+            playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
+            if (g.transform.position.y > playerPos.y)
+            {
+                FindObjectOfType<TileBasedMovement>().moveUp();
+            }
+            yield return new WaitForSeconds(1f);  // wait one second before moving the player again
+                                                  // "g" is above player, go up, if to the right, go right, etc?
+                                                  //print("changing color");
+
+        }
+    }
+
 }
