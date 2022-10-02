@@ -64,15 +64,15 @@ public class TerrainGen : MonoBehaviour
 
         GameObject[,] output = CreateTerrain();
 
-        for (int x = 0; x < width; x++)
+        /*for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 Quaternion zero = new Quaternion();
                 zero.eulerAngles = Vector3.zero;
-                Instantiate(output[x, y], new Vector3(x / 1.6f, y / 1.6f/*, -output[x,y].height/8*/), zero, transform);
+                Instantiate(output[x, y], new Vector3(x / 1.6f, y / 1.6f/*, -output[x,y].height/8), zero, transform);
             }
-        }
+        }*/
     }
 
     //create tile based on the height of perlin noise
@@ -84,7 +84,7 @@ public class TerrainGen : MonoBehaviour
                 Tile temp = tiles[(int)(tiles.Count*Mathf.Clamp(change.Evaluate(CalcNoise(x,y)), 0, .99f))];
                 Quaternion zero = new Quaternion();
                 zero.eulerAngles = Vector3.zero;
-                GameObject tileObj = Instantiate(mapBack[temp], new Vector3(x / 1.6f, y / 1.6f/*, -output[x,y].height/8*/), zero, transform);
+                GameObject tileObj = Instantiate(mapBack[temp], new Vector3(x / 1.05f, y / 1.05f/*, -output[x,y].height/8*/), zero, transform);
                 tileObj.GetComponent<Tile>().gridPos = new Vector2(x, y);
                 ret[x, y] = tileObj; 
             }
