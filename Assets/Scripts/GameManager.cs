@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     // reference to grid of enemy/interactable locations
 
+    public static Tile EndingTile;//can be changed to GameObject if necessary. change endingTile.cs line 10 just the gameObject.
+
     private static Vector2 _PlayerGridPos = Vector2.zero;
 
     public static Vector2 PlayerGridPos
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     public void PlayerDeath()

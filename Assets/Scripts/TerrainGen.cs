@@ -153,6 +153,22 @@ public class TerrainGen : MonoBehaviour
                 }
                 
         }
+
+        Structure endGate = (Resources.Load("ending") as GameObject).GetComponent<Structure>();
+        endGate.Start();
+
+        for (int x = height; x > 0; x--)
+        {
+            //print(startHut.doesFitAtPoint(ret, new Vector2(x,0), false));
+            if (endGate.doesFitAtPoint(ret, new Vector2(width-3, x), false))
+            {
+                ret = endGate.replaceStructTiles(ret, new Vector2(width-3, x));
+                failed = false;
+                break;
+            }
+
+        }
+
         if (failed) {
             ret = CreateTerrain();
         }
