@@ -7,7 +7,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
 {
     BoxCollider2D boxCollider;
     DamageableComponent damageableComponent;
-    Tile top, right, bottom, left;
+    GameObject[] tiles;
     [SerializeField] int damagePerHit = 10;
     [SerializeField] private Light2D damageLight;
 
@@ -18,9 +18,12 @@ public class PlayerCombat : MonoBehaviour, IKillable
         damageLight.enabled = false;
     }
 
-    public static void UpdateTiles()
+    public void UpdateTiles()
     {
-        
+        if (!GameManager.IsPlayerMoving)
+        {
+            tiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), GameManager.PlayerGridPos);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
