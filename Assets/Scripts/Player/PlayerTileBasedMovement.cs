@@ -92,6 +92,7 @@ public class PlayerTileBasedMovement : MonoBehaviour
         {
             PlayerTime.ResetTime();
         }
+        GameManager.PlayerGridPos = gridPosition; // updating the game manager's grid position
     }
     public IEnumerator MovePlayer(Vector3 direction)
     {

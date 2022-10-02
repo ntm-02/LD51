@@ -49,36 +49,33 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
 
     public IEnumerator MouseClickCoroutine()
     {
-        foreach (GameObject g in path)
+        if (!GameManager.IsPlayerMoving)
         {
-            //print(g.name);
+            foreach (GameObject g in path)
+            {
+                // player is currently moving
+                GameManager.IsPlayerMoving = true;
+                Vector2 playerPos = FindObjectOfType<PlayerTileBasedMovement>().getWorldPos();
+                if (g.transform.position.y > playerPos.y)
+                {
+                    FindObjectOfType<PlayerTileBasedMovement>().moveUp();
+                }
+                if (g.transform.position.y < playerPos.y)
+                {
+                    FindObjectOfType<PlayerTileBasedMovement>().moveDown();
+                }
+                if (g.transform.position.x > playerPos.x)
+                {
+                    FindObjectOfType<PlayerTileBasedMovement>().moveRight();
+                }
+                if (g.transform.position.x < playerPos.x)
+                {
+                    FindObjectOfType<PlayerTileBasedMovement>().moveLeft();
+                }
+                yield return new WaitForSeconds(1f);  // wait one second before moving the player again
+            }
+            GameManager.IsPlayerMoving = false;
         }
-        foreach (GameObject g in path)
-        {
-            Vector2 playerPos = FindObjectOfType<PlayerTileBasedMovement>().getWorldPos();
-            if (g.transform.position.y > playerPos.y)
-            {
-               FindObjectOfType<PlayerTileBasedMovement>().moveUp();
-            }
-            if (g.transform.position.y < playerPos.y)
-            {
-                FindObjectOfType<PlayerTileBasedMovement>().moveDown();
-            }
-            if (g.transform.position.x > playerPos.x)
-            {
-                FindObjectOfType<PlayerTileBasedMovement>().moveRight();
-            }
-            if (g.transform.position.x < playerPos.x)
-            {
-                FindObjectOfType<PlayerTileBasedMovement>().moveLeft();
-            }
-            yield return new WaitForSeconds(1f);  // wait one second before moving the player again
-            // "g" is above player, go up, if to the right, go right, etc?
-            //print("changing color");
-            
-        }
-       // print("clicked");
-       // yield return null;
     }
 
 
