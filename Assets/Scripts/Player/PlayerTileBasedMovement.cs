@@ -62,7 +62,7 @@ public class PlayerTileBasedMovement : MonoBehaviour
     void Update()
     {
         grid = FindObjectOfType<TilePathFinding>().getGrid();
-        if (Input.GetKeyDown(KeyCode.G))
+       /* if (Input.GetKeyDown(KeyCode.G))
         {
             grid = FindObjectOfType<TilePathFinding>().getGrid();
             this.transform.position = grid[0, 0].transform.position;
@@ -91,7 +91,7 @@ public class PlayerTileBasedMovement : MonoBehaviour
         if (PlayerTime.currPlayerTime == 0f) // remove this for final game, grants infinite moves by reseting time
         {
             PlayerTime.ResetTime();
-        }
+        }*/
         GameManager.PlayerGridPos = gridPosition; // updating the game manager's grid position
     }
     public IEnumerator MovePlayer(Vector3 direction)
