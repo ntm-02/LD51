@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerTileBasedMovement : MonoBehaviour
 {
-    //PlayerTime timeObj = new PlayerTime();
     private bool isMoving = false;
     private Vector3 origPos;
     private Vector3 newPos;
@@ -29,9 +28,10 @@ public class PlayerTileBasedMovement : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
-
+        yield return new WaitForSeconds(0.1f);
+        grid = FindObjectOfType<TilePathFinding>().getGrid();
     }
 
 
@@ -60,16 +60,19 @@ public class PlayerTileBasedMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (PlayerTime.currPlayerTime == 0f) // remove this for final game, grants infinite moves by reseting time
+        // press space to reset player time to full
+        if (Input.GetButtonDown("Jump")) // remove this for final game, grants infinite moves by reseting time
         {
             PlayerTime.ResetTime();
-        }*/
-        grid = FindObjectOfType<TilePathFinding>().getGrid();
+        }
+        //grid = FindObjectOfType<TilePathFinding>().getGrid();
         GameManager.PlayerGridPos = gridPosition; // updating the game manager's player grid position
 
     }
     public IEnumerator MovePlayer(Vector3 direction)
     {
+        // decreases player time by 1 second for each tile moved
+        PlayerTime.DecreaseTime(1f);
         isMoving = true;
         float elapsedTime = 0;
         origPos = transform.position;

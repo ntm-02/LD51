@@ -13,6 +13,7 @@ public class zoomcam : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         mainCam = GetComponent<Camera>();
         camSize = mainCam.orthographicSize;
     }
@@ -23,7 +24,7 @@ public class zoomcam : MonoBehaviour
         camSize += Input.GetAxis("Mouse ScrollWheel") * sensitivity * -1f;
         //print(Input.GetAxis("Mouse ScrollWheel"));
         camSize = Mathf.Clamp(camSize, minSize, maxSize);
-        print(camSize);
+        //print(camSize);
         mainCam.orthographicSize = camSize;
     }
 }
