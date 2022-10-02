@@ -44,7 +44,9 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         }
     }
 
-    public void OnPointerClick( PointerEventData eventData)
+
+
+    public IEnumerator OnMouseClick()
     {
         foreach (GameObject g in path)
         {
@@ -53,7 +55,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
             {
                FindObjectOfType<TileBasedMovement>().moveUp();
             }
-            //yield return new WaitForSeconds(1f);  // wait one second before moving the player again
+            yield return new WaitForSeconds(1f);  // wait one second before moving the player again
             // "g" is above player, go up, if to the right, go right, etc?
             //print("changing color");
             
@@ -61,4 +63,28 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         print("clicked");
        // yield return null;
     }
+
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        StartCoroutine(MouseClickCoroutine());
+    }
+
+    private IEnumerator MouseClickCoroutine()
+    {
+        foreach (GameObject g in path)
+        {
+            playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
+            if (g.transform.position.y > playerPos.y)
+            {
+                FindObjectOfType<TileBasedMovement>().moveUp();
+            }
+            yield return new WaitForSeconds(1f);  // wait one second before moving the player again
+                                                  // "g" is above player, go up, if to the right, go right, etc?
+                                                  //print("changing color");
+
+        }
+    }
+
 }
