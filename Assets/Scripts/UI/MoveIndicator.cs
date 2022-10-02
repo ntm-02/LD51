@@ -32,7 +32,7 @@ public class MoveIndicator : MonoBehaviour
     public void SpawnIndicator()
     {
         //Debug.Log("Is null? : " + transform.position);
-        Vector3 createPos = new Vector3 (transform.position.x, (transform.position.y + 0.75f), transform.position.z);
+        Vector3 createPos = new Vector3 (transform.position.x, (transform.position.y + 0.8f), transform.position.z);
         indicator = Instantiate(pfMoveIndicator, createPos, Quaternion.identity);
     }
 
