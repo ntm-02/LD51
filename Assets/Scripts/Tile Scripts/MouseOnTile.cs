@@ -36,16 +36,18 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         FindObjectOfType<TilePathFinding>().clearPathTrail();
 
         // finding the tile with player on it
-        playerPos = FindObjectOfType<PlayerTileBasedMovement>().getGridPos();
-
+        //playerPos = FindObjectOfType<PlayerTileBasedMovement>().getGridPos();
+        playerPos = GameManager.PlayerGridPos;
         // generating the new path with playerPos as start and the tile that was hovered over as the end
         path = FindObjectOfType<TilePathFinding>().FindShortestPath(playerPos, transform.parent.parent.GetComponent<Tile>().gridPos);
 
-        PlayerTime.ResetTime();  // reset player time every time we move the pointer/mouse
+        float timePassed = 0f;
+        //PlayerTime.ResetTime();  // reset player time every time we move the pointer/mouse NOTE:This could be done with it's own local time calculation, so we don't affect the player's actual time
         foreach (GameObject g in path)
         {
+            timePassed += 1f;
             // if the path is within the player's allotted time, display as gray tinted tiles
-            if (PlayerTime.DecreaseTime(1f) != -1)  // decreases player time for each tile in path
+            if (PlayerTime.CheckDecrease(timePassed)) 
             {
                 g.GetComponent<SpriteRenderer>().color = Color.gray;
             }
@@ -95,6 +97,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
                 // player is currently moving
                 GameManager.IsPlayerMoving = true;
                 Vector2 playerPos = FindObjectOfType<PlayerTileBasedMovement>().getWorldPos();
+                print(playerPos);
 
                 if (g.transform.position.y > playerPos.y)
                 {
@@ -117,8 +120,6 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
             // player no longer moving
             GameManager.IsPlayerMoving = false;
 
-            // Updating the path trail after movement: unfortunately this not for the tile am I am hovering over but the one I clicked
-            //GeneratePathTrail();
         }
     }
 

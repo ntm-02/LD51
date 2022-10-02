@@ -57,17 +57,17 @@ public class EnemyManager : MonoBehaviour
 
 
         int randomVal = UnityEngine.Random.Range(0, 2);
-        Debug.Log($"Random value: {randomVal}");
+        //Debug.Log($"Random value: {randomVal}");
         if (randomVal > 0)
         {
-            Debug.Log("instantiating enemy");
+            //Debug.Log("instantiating enemy");
             // do a better job of randomizing this
 
             Instantiate(enemyTypes[UnityEngine.Random.Range(0, enemyTypes.Count)], selectedPlayerPathAdjacentTile.transform.position, Quaternion.identity);
         }
         else
         {
-            Debug.Log("not instantiating enemy");
+            //Debug.Log("not instantiating enemy");
         }
     }
 
@@ -77,12 +77,12 @@ public class EnemyManager : MonoBehaviour
         {
             // implement other enemies that have a load prefab method
             // could make an interface like ISpawnable or something for spawning stuff 
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
-            gameObject.AddComponent<SlimeEnemy>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
+            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
         };
     }
 

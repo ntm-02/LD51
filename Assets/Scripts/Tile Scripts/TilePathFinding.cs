@@ -61,7 +61,7 @@ public class TilePathFinding : MonoBehaviour
                 used.Add(g);
             }
         }
-
+        farthest = Enumerable.Except(farthest, used).ToList();
         Comparer<GameObject> sorter = Comparer<GameObject>.Create((a, b) => a.GetComponent<Tile>().pathFromRoot.Count - b.GetComponent<Tile>().pathFromRoot.Count);
 
         farthest.Sort(sorter);
@@ -111,7 +111,7 @@ public class TilePathFinding : MonoBehaviour
 
         //clear out all the nodes. not sure why i don't do this with other returns, but whatever. it works.
         List<GameObject> temp = new() { };
-        temp.AddRange(farthest[0].GetComponent<Tile>().pathFromRoot);
+        temp.AddRange(farthest[0].GetComponent<Tile>().pathFromRoot); // out of range index exception?
         foreach (GameObject g in temp)
         {
             //print(g.GetComponent<Tile>().gridPos);
