@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3482840256000161352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.298918, y: 8.025313, z: 3.3933794}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -50,6 +50,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   pathCost: 0
   travelCost: 0
+  hasPlayer: 0
 --- !u!212 &7717780383796596409
 SpriteRenderer:
   m_ObjectHideFlags: 0
