@@ -23,10 +23,10 @@ public class PlayerCombat : MonoBehaviour, IKillable
         if (!GameManager.IsPlayerMoving)
         {
             neighborTiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), GameManager.PlayerGridPos);
-            foreach (GameObject tile in neighborTiles)
-            {
-                Debug.Log(tile.GetComponent<Tile>().GetCollisionObject().name);
-            }
+            //foreach (GameObject tile in neighborTiles)
+            //{
+            //    Debug.Log(tile.GetComponent<Tile>().GetCollisionObject().name);
+            //}
         }
     }
 
