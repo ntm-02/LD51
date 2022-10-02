@@ -36,17 +36,17 @@ public class EnemyManager : MonoBehaviour
     private void InstantiateRandomEnemy(GameObject tile)
     {
         int randomVal = UnityEngine.Random.Range(0, 2);
-        Debug.Log($"Random value: {randomVal}");
+        //Debug.Log($"Random value: {randomVal}");
         if (randomVal > 0)
         {
-            Debug.Log("instantiating enemy");
+            //Debug.Log("instantiating enemy");
             // do a better job of randomizing this
 
             Instantiate(enemyTypes[UnityEngine.Random.Range(0, enemyTypes.Count)], tile.transform.position, Quaternion.identity);
         }
         else
         {
-            Debug.Log("not instantiating enemy");
+            //Debug.Log("not instantiating enemy");
         }
     }
 

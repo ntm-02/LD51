@@ -30,9 +30,11 @@ public class PlayerTileBasedMovement : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        transform.position = gridPosition;
-        yield return new WaitForSeconds(0.1f);
+        //transform.position = gridPosition;
+        //transform.position = grid[(int)gridPosition.x, (int)gridPosition.y].transform.position;  // trying something
+        yield return new WaitForSeconds(0.05f);
         grid = FindObjectOfType<TilePathFinding>().getGrid();
+        transform.position = grid[(int)gridPosition.x, (int)gridPosition.y].transform.position;
     }
 
 
