@@ -23,7 +23,8 @@ public class EnemyManager : MonoBehaviour
 
         foreach (GameObject tile in optimalPlayerPath)
         {
-            InstantiateRandomEnemy(tile);
+            GameObject[] playerPathAdjacentTiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), tile.gameObject.transform.position);
+            InstantiateRandomEnemy(playerPathAdjacentTiles);
         }
 
         // calculate the shortest path from the player to the exit
@@ -33,20 +34,40 @@ public class EnemyManager : MonoBehaviour
         // set an offset bias to populate enemies around the path
     }
 
-    private void InstantiateRandomEnemy(GameObject tile)
+    private void InstantiateRandomEnemy(GameObject[] playerPathAdjacentTiles)
     {
+        int randomAdjacentTileIndex = UnityEngine.Random.Range(0, 4);
+        GameObject selectedPlayerPathAdjacentTile = null;
+        
+        Debug.Log($"playerPathAdjacentTiles Length: {playerPathAdjacentTiles.Length}");
+        Debug.Log($"Selected random adjacent tile index: {randomAdjacentTileIndex}");
+        
+        try
+        {
+            selectedPlayerPathAdjacentTile = playerPathAdjacentTiles[randomAdjacentTileIndex];
+
+        }
+        catch (IndexOutOfRangeException ex)
+        {
+            // if the tile doesn't exist, just run the method again to get a new random index
+            Debug.Log($"Index was out of bounds: {randomAdjacentTileIndex}");
+            InstantiateRandomEnemy(playerPathAdjacentTiles);
+        }
+
+
+
         int randomVal = UnityEngine.Random.Range(0, 2);
-        Debug.Log($"Random value: {randomVal}");
+        //Debug.Log($"Random value: {randomVal}");
         if (randomVal > 0)
         {
-            Debug.Log("instantiating enemy");
+            //Debug.Log("instantiating enemy");
             // do a better job of randomizing this
 
-            Instantiate(enemyTypes[UnityEngine.Random.Range(0, enemyTypes.Count)], tile.transform.position, Quaternion.identity);
+            Instantiate(enemyTypes[UnityEngine.Random.Range(0, enemyTypes.Count)], selectedPlayerPathAdjacentTile.transform.position, Quaternion.identity);
         }
         else
         {
-            Debug.Log("not instantiating enemy");
+            //Debug.Log("not instantiating enemy");
         }
     }
 
@@ -69,4 +90,4 @@ public class EnemyManager : MonoBehaviour
     {
 
     }
-} 
+}
