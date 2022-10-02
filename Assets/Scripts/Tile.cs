@@ -37,6 +37,8 @@ public class Tile : MonoBehaviour
     public int pathCost;
     public int travelCost;
     public bool hasPlayer = false;
+    public bool hasEnemy = false;
+    public GameObject collisionObject;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,6 +46,18 @@ public class Tile : MonoBehaviour
         {
             hasPlayer = true;
         }
+
+        if (collision.CompareTag("Enemy"))
+        {
+            hasEnemy = true;
+            Debug.Log(collision.gameObject.name);
+            collisionObject = collision.gameObject;
+        }
+    }
+
+    public GameObject GetCollisionObject()
+    {
+        return collisionObject;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -51,6 +65,11 @@ public class Tile : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             hasPlayer = false;
+        }
+
+        if (collision.CompareTag("Enemy"))
+        {
+            hasEnemy = false;
         }
     }
 

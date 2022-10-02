@@ -7,7 +7,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
 {
     BoxCollider2D boxCollider;
     DamageableComponent damageableComponent;
-    GameObject[] tiles;
+    GameObject[] neighborTiles;
     [SerializeField] int damagePerHit = 10;
     [SerializeField] private Light2D damageLight;
 
@@ -22,7 +22,11 @@ public class PlayerCombat : MonoBehaviour, IKillable
     {
         if (!GameManager.IsPlayerMoving)
         {
-            tiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), GameManager.PlayerGridPos);
+            neighborTiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), GameManager.PlayerGridPos);
+            foreach (GameObject tile in neighborTiles)
+            {
+                Debug.Log(tile.GetComponent<Tile>().GetCollisionObject().name);
+            }
         }
     }
 
@@ -55,6 +59,6 @@ public class PlayerCombat : MonoBehaviour, IKillable
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateTiles();
     }
 }
