@@ -34,7 +34,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         // finding the tile with player on it
         //GameObject[,] tileGrid = FindObjectOfType<TilePathFinding>().getGrid();
 
-        playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
+        playerPos = FindObjectOfType<PlayerTileBasedMovement>().getGridPos();
         //print(playerPos);
         // generating the new path
         path = FindObjectOfType<TilePathFinding>().FindShortestPath(playerPos, transform.parent.parent.GetComponent<Tile>().gridPos);
@@ -55,22 +55,22 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         }
         foreach (GameObject g in path)
         {
-            Vector2 playerPos = FindObjectOfType<TileBasedMovement>().getWorldPos();
+            Vector2 playerPos = FindObjectOfType<PlayerTileBasedMovement>().getWorldPos();
             if (g.transform.position.y > playerPos.y)
             {
-               FindObjectOfType<TileBasedMovement>().moveUp();
+               FindObjectOfType<PlayerTileBasedMovement>().moveUp();
             }
             if (g.transform.position.y < playerPos.y)
             {
-                FindObjectOfType<TileBasedMovement>().moveDown();
+                FindObjectOfType<PlayerTileBasedMovement>().moveDown();
             }
             if (g.transform.position.x > playerPos.x)
             {
-                FindObjectOfType<TileBasedMovement>().moveRight();
+                FindObjectOfType<PlayerTileBasedMovement>().moveRight();
             }
             if (g.transform.position.x < playerPos.x)
             {
-                FindObjectOfType<TileBasedMovement>().moveLeft();
+                FindObjectOfType<PlayerTileBasedMovement>().moveLeft();
             }
             yield return new WaitForSeconds(1f);  // wait one second before moving the player again
             // "g" is above player, go up, if to the right, go right, etc?

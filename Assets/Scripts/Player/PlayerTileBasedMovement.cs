@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileBasedMovement : MonoBehaviour
+public class PlayerTileBasedMovement : MonoBehaviour
 {
     //PlayerTime timeObj = new PlayerTime();
     private bool isMoving = false;
@@ -10,7 +10,7 @@ public class TileBasedMovement : MonoBehaviour
     private Vector3 newPos;
     private float timeToMove = 0.2f;
     private GameObject[,] grid;
-    private Vector2 gridPosition = Vector2.zero;
+    private static Vector2 gridPosition = Vector2.zero;
 
 
 
@@ -22,6 +22,11 @@ public class TileBasedMovement : MonoBehaviour
     public Vector2 getWorldPos()
     {
         return new Vector2(transform.position.x, transform.position.y);
+    }
+
+    public static void setGridPos(Vector2 newGridPos)
+    {
+        gridPosition = newGridPos;
     }
 
     // Start is called before the first frame update
