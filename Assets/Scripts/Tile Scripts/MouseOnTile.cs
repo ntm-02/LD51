@@ -35,6 +35,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         //GameObject[,] tileGrid = FindObjectOfType<TilePathFinding>().getGrid();
 
         playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
+        //print(playerPos);
         // generating the new path
         path = FindObjectOfType<TilePathFinding>().FindShortestPath(playerPos, transform.parent.parent.GetComponent<Tile>().gridPos);
         foreach (GameObject g in path)
@@ -48,6 +49,10 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
 
     public IEnumerator MouseClickCoroutine()
     {
+        foreach (GameObject g in path)
+        {
+            //print(g.name);
+        }
         foreach (GameObject g in path)
         {
             Vector2 playerPos = FindObjectOfType<TileBasedMovement>().getWorldPos();

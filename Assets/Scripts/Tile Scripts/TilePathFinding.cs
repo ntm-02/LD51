@@ -65,7 +65,7 @@ public class TilePathFinding : MonoBehaviour
         farthest.AddRange(notNull(adjacentToPoint(grid, playerpos)));
         foreach (GameObject g in farthest)
         {
-            //print(g.GetComponent<Tile>().gridPos);
+            print(g.GetComponent<Tile>().gridPos);
         }
 
         HashSet<GameObject> used = new();
