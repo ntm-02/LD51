@@ -8,13 +8,14 @@ public class PlayerCombat : MonoBehaviour, IKillable
     BoxCollider2D boxCollider;
     DamageableComponent damageableComponent;
     [SerializeField] int damagePerHit = 10;
-    [SerializeField] private GameObject damageLight;
+    [SerializeField] private Light2D damageLight;
 
     void Start()
     {
         damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
         boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
-        damageLight.SetActive(false);
+        damageLight.enabled = false;
+        Debug.Log("Light off.");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,14 +39,10 @@ public class PlayerCombat : MonoBehaviour, IKillable
 
     IEnumerator DamageLightToggle()
     {
-        if (!damageLight.GetComponent<Light2D>().isActiveAndEnabled)
-        {
-            damageLight.SetActive(true);
-        }
-
-        damageLight.SetActive(true);
+        Debug.Log("Light on.");
+        damageLight.enabled = true;
         yield return new WaitForSeconds(.5f);
-        damageLight.SetActive(false);
+        damageLight.enabled = false;
     }
 
     // Update is called once per frame
