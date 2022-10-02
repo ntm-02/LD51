@@ -11,7 +11,7 @@ public class TilePathFinding : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
         grid = FindObjectOfType<TerrainGen>().CreateTerrain();
     }
 
@@ -51,7 +51,7 @@ public class TilePathFinding : MonoBehaviour
 
         List<GameObject> farthest = new() { };
         farthest.AddRange(notNull(adjacentToPoint(grid, playerpos)));
-        print(farthest.Count);
+        //print(farthest.Count);
 
         HashSet<GameObject> used = new();
         foreach (GameObject g in grid)
