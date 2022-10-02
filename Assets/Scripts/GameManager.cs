@@ -10,9 +10,19 @@ public class GameManager : MonoBehaviour
     public static bool IsPlayerDead = false;
     public static bool HasEscaped = false;
     public static bool IsReloadingLevel = false;
+    public static bool IsPlayerMoving = false;
+    public static bool IsEnemyMoving = false;
     public static bool InCutscene = false;
 
     // reference to grid of enemy/interactable locations
+
+    private static Vector2 _PlayerGridPos = Vector2.zero;
+
+    public Vector2 PlayerGridPos
+    {
+        get => _PlayerGridPos;
+        set => _PlayerGridPos = value;
+    }
 
     [SerializeField] private GameObject DeathCanvas;
     private void Awake()
@@ -41,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeath()
     {
+        IsPlayerDead = true;
         Time.timeScale = 0;
         DeathCanvas.SetActive(true);
 

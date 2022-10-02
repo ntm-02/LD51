@@ -7,6 +7,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
 {
     BoxCollider2D boxCollider;
     DamageableComponent damageableComponent;
+    Tile top, right, bottom, left;
     [SerializeField] int damagePerHit = 10;
     [SerializeField] private Light2D damageLight;
 
@@ -15,7 +16,11 @@ public class PlayerCombat : MonoBehaviour, IKillable
         damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
         boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
         damageLight.enabled = false;
-        Debug.Log("Light off.");
+    }
+
+    public static void UpdateTiles()
+    {
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -39,7 +44,6 @@ public class PlayerCombat : MonoBehaviour, IKillable
 
     IEnumerator DamageLightToggle()
     {
-        Debug.Log("Light on.");
         damageLight.enabled = true;
         yield return new WaitForSeconds(.5f);
         damageLight.enabled = false;

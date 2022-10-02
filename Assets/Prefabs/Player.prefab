@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePerHit: 10
-  damageLight: {fileID: 0}
+  damageLight: {fileID: 5688488336428100067}
 --- !u!114 &5688488336428100067
 MonoBehaviour:
   m_ObjectHideFlags: 0
