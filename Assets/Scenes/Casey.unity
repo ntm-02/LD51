@@ -512,6 +512,9 @@ MonoBehaviour:
   - {fileID: 3245699602799205100, guid: 3a36281b51ff88f4a9968b5921592d6c, type: 3}
   - {fileID: 1473240877623288605, guid: f9da9d2aa22619d4998493ce07f65c24, type: 3}
   - {fileID: 2532380586404312700, guid: d25bb9bf7f4705c49aa6382a5b4f6a17, type: 3}
+  borders:
+  - {fileID: 7939661693559420208, guid: 2efe72fd9456e14419669bfddb702f08, type: 3}
+  - {fileID: 3482840256000161352, guid: 4ed7660d6f7f3b24e878fe6a4cf8eb30, type: 3}
   PerlinScale: 2
   offsetMultiplier: 23
   change:
