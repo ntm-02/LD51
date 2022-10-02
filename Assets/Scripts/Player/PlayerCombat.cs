@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerCombat : MonoBehaviour, IKillable
 {
+    BoxCollider2D boxCollider;
     DamageableComponent damageableComponent;
     [SerializeField] int damagePerHit = 10;
     [SerializeField] private GameObject damageLight;
@@ -11,11 +13,13 @@ public class PlayerCombat : MonoBehaviour, IKillable
     void Start()
     {
         damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
+        boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
+        damageLight.SetActive(false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<DamageableComponent>(out DamageableComponent target))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             damageableComponent.TakeDamage(damagePerHit);
         }
@@ -34,6 +38,11 @@ public class PlayerCombat : MonoBehaviour, IKillable
 
     IEnumerator DamageLightToggle()
     {
+        if (!damageLight.GetComponent<Light2D>().isActiveAndEnabled)
+        {
+            damageLight.SetActive(true);
+        }
+
         damageLight.SetActive(true);
         yield return new WaitForSeconds(.5f);
         damageLight.SetActive(false);
