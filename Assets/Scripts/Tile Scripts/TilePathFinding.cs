@@ -11,7 +11,7 @@ public class TilePathFinding : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
         grid = FindObjectOfType<TerrainGen>().CreateTerrain();
     }
 
