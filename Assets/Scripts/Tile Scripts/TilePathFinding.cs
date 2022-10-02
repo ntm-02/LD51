@@ -45,7 +45,7 @@ public class TilePathFinding : MonoBehaviour
 
 
     // returns the shortest path as a list of GameObjects that are tiles in the grid
-    public List<GameObject> FindShortestPath(Vector2 playerpos, Vector2 targetpos)
+    public static List<GameObject> FindShortestPath(GameObject[,] grid, Vector2 playerpos, Vector2 targetpos)
     {
         //print("player: " + playerpos + " target: " + targetpos);
 
@@ -116,7 +116,7 @@ public class TilePathFinding : MonoBehaviour
         {
             //print(g.GetComponent<Tile>().gridPos);
         }
-        resetUsed(used);
+        resetUsed(grid, used);
         foreach (GameObject g in grid)
         {
             if (g.GetComponent<Tile>().pathFromRoot.Count > 0)
@@ -129,7 +129,7 @@ public class TilePathFinding : MonoBehaviour
             //FindObjectOfType<TerrainGen>().DisplayTerrain();
         }
 
-    private void resetUsed(HashSet<GameObject> used)
+    private static void resetUsed(GameObject[,] grid, HashSet<GameObject> used)
     {
         foreach (GameObject g in grid)
         {
