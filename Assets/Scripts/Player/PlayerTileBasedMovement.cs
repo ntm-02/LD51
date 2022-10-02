@@ -13,7 +13,6 @@ public class PlayerTileBasedMovement : MonoBehaviour
     private static Vector2 gridPosition = GameManager.PlayerGridPos;
 
 
-
     public Vector2 getGridPos()
     {
         return gridPosition;
@@ -32,7 +31,7 @@ public class PlayerTileBasedMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //grid = FindObjectOfType<TilePathFinding>().getGrid();
+
     }
 
 
@@ -61,38 +60,13 @@ public class PlayerTileBasedMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        grid = FindObjectOfType<TilePathFinding>().getGrid();
-       /* if (Input.GetKeyDown(KeyCode.G))
-        {
-            grid = FindObjectOfType<TilePathFinding>().getGrid();
-            this.transform.position = grid[0, 0].transform.position;
-        }
-        if (Input.GetKey(KeyCode.W) && !isMoving && (PlayerTime.DecreaseTime(1f) != -1f))
-        {
-            StartCoroutine(MovePlayer(grid[(int)gridPosition.x, (int)gridPosition.y + 1].transform.position - transform.position));
-            gridPosition += Vector2.up;
-        }
-        if (Input.GetKey(KeyCode.A) && !isMoving && (PlayerTime.DecreaseTime(1f) != -1f))
-        {
-            StartCoroutine(MovePlayer(grid[(int)gridPosition.x - 1, (int)gridPosition.y].transform.position - transform.position));
-            gridPosition += Vector2.left;
-        }
-        if (Input.GetKey(KeyCode.S) && !isMoving && (PlayerTime.DecreaseTime(1f) != -1f))
-        {
-            StartCoroutine(MovePlayer(grid[(int)gridPosition.x, (int)gridPosition.y - 1].transform.position - transform.position));
-            gridPosition += Vector2.down;
-        }
-        if (Input.GetKey(KeyCode.D) && !isMoving && (PlayerTime.DecreaseTime(1f) != -1f))
-        {
-            StartCoroutine(MovePlayer(grid[(int)gridPosition.x + 1, (int)gridPosition.y].transform.position - transform.position));
-            gridPosition += Vector2.right;
-        }
-
-        if (PlayerTime.currPlayerTime == 0f) // remove this for final game, grants infinite moves by reseting time
+        /*if (PlayerTime.currPlayerTime == 0f) // remove this for final game, grants infinite moves by reseting time
         {
             PlayerTime.ResetTime();
         }*/
-        GameManager.PlayerGridPos = gridPosition; // updating the game manager's grid position
+        grid = FindObjectOfType<TilePathFinding>().getGrid();
+        GameManager.PlayerGridPos = gridPosition; // updating the game manager's player grid position
+
     }
     public IEnumerator MovePlayer(Vector3 direction)
     {
