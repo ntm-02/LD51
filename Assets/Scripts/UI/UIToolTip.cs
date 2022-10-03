@@ -43,13 +43,13 @@ public class UIToolTip : MonoBehaviour
                 break;
             // Attack Texts are from this point under -------------------------------
             case 20: // Slash
-                text.text = "Deal 40 Damage in a short wide-range. Costs 2 seconds.";
+                text.text = "Deal 40 Damage in a short wide-range. 2 sec.";
                 break;
             case 21: // Arrow
-                text.text = "Deal 20 Damage in a long line. Costs 5 seconds.";
+                text.text = "Deal 20 Damage in a long line. 5 sec.";
                 break;
             case 22: // Airstrike
-                text.text = "Deal 80 damage to a single target. Costs 8 seconds.";
+                text.text = "Deal 80 damage to a single target. 8 sec.";
                 break;
             case 23: // Defend
                 text.text = "reduce damage -- dave pls add";
