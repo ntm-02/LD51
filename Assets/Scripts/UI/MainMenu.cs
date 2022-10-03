@@ -31,7 +31,12 @@ public class MainMenu : MonoBehaviour
     }
     public void ToCredits()
     {
-        //SceneManager.LoadScene(3);  // subject to change
+        SceneManager.LoadScene(2);  // subject to change
+    }
+
+    public void ToControls()
+    {
+        SceneManager.LoadScene(3);
     }
 
     public void ExitGame()
