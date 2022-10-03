@@ -41,6 +41,12 @@ public class PlayerCombat : MonoBehaviour, IKillable
         }
     }
 
+    public void EndPlayerTurn()
+    {
+        PlayerTime.currPlayerTime = 0f;
+        GameManager.IsPlayerTurn = false;
+    }
+
     public void Die()
     {
         GameManager.IsPlayerDead = true;
