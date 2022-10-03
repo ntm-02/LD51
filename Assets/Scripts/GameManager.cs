@@ -14,6 +14,15 @@ public class GameManager : MonoBehaviour
     public static bool IsEnemyMoving = false;
     public static bool InCutscene = false;
 
+    public Action action = Action.none; // Controlled by buttons in the UI canvas.
+
+    public enum Action
+    {
+        moving,
+        attacking,
+        none
+    }
+
     // reference to grid of enemy/interactable locations
 
     public static Tile EndingTile;//can be changed to GameObject if necessary. change endingTile.cs line 10 just the gameObject.
@@ -52,7 +61,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 
     public void PlayerDeath()
@@ -70,4 +79,35 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    // Buttons are funny! so we cant use enum.
+    // int state - Desired state to toggle. If action is already in this state, swap it to none.
+    // 0 - move
+    // 1 - attack
+    // 2 - none
+    public void ToggleAction(int state) {
+        Action newAction;
+        switch(state)
+        {
+            case 0:
+                newAction = Action.moving;
+                break;
+            case 1:
+                newAction = Action.attacking;
+                break;
+            case 2:
+                newAction = Action.none;
+                break;
+            default:
+                Debug.Log("button was set up improperly - gave GameManager.SetAction() an invalid int. Valid 0-2. Set to Default - none");
+                newAction = Action.none;
+                break;
+        }
+        if (action == newAction)
+        {
+            action = Action.none;
+        } else
+        {
+            action = newAction;
+        }
+    }
 }
