@@ -16,8 +16,8 @@ public class EnemyManager : MonoBehaviour
         tilePathFinding = FindObjectOfType<TilePathFinding>();
         enemyTypes = FetchPrefabs();
         // wait an arbitrary amount of time so that the map exists when we try to access it
-        endTileGameObject = GameManager.EndingTile.transform.gameObject;
         yield return new WaitUntil(() => tilePathFinding.getGrid() != null);
+        endTileGameObject = GameManager.EndingTile.transform.gameObject;
         GameObject[,] grid = tilePathFinding.getGrid();
         //print(grid);
         //print(GameManager.PlayerGridPos);
@@ -63,7 +63,7 @@ public class EnemyManager : MonoBehaviour
             {
                 if (optimalPlayerPath.Contains(grid[i, j]))
                 {
-                    GameObject[] playerPathAdjacentTiles = TilePathFinding.adjacentToPoint(grid, grid[i,j].gameObject.transform.position);
+                    GameObject[] playerPathAdjacentTiles = TilePathFinding.adjacentToPoint(grid, new Vector2(i, j));
                     InstantiateRandomEnemy(playerPathAdjacentTiles, new Vector2(i,j));
                     
                 }

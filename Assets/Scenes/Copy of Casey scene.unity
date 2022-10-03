@@ -519,9 +519,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1611168916, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4516344708009804129, guid: b6f08198ea135a441bf36565f217a227, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516344708009804129, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4516344708009804131, guid: b6f08198ea135a441bf36565f217a227, type: 3}
       propertyPath: m_RootOrder
@@ -1222,6 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923aa7cb19962fa4684c96cea4d7a23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  action: 2
   DeathCanvas: {fileID: 0}
 --- !u!4 &1694336018
 Transform:

@@ -19,10 +19,10 @@ public class PlayerCombat : MonoBehaviour, IKillable
 
     void Start()
     {
-        damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
-        boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
-        attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
-        damageLight.enabled = false;
+        // damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
+        //boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
+       // attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
+        //damageLight.enabled = false;
     }
 
     public void UpdateTiles()
@@ -108,13 +108,13 @@ public class PlayerCombat : MonoBehaviour, IKillable
     {
         if (firstTime)
         {
-            StartCoroutine(UpdateTileWait());
+           // StartCoroutine(UpdateTileWait());
         }
         else
         {
-            UpdateTiles();
+          //  UpdateTiles();
         }
 
-        OrientAttackCollider();
+        //OrientAttackCollider();
     }
 }
