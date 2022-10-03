@@ -406,9 +406,9 @@ RectTransform:
   m_Father: {fileID: 2337646926027985279}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 90.55115, y: -15}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &610511300
@@ -601,6 +601,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1737992563}
+        m_TargetAssemblyTypeName: PlayerCombat, Assembly-CSharp
+        m_MethodName: setAir
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &626921676
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Slash
+  m_text: Airstrike
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1058,9 +1070,9 @@ RectTransform:
   m_Father: {fileID: 2337646926027985279}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 90.55115, y: -66.570404}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1999690486
@@ -1253,6 +1265,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1737992563}
+        m_TargetAssemblyTypeName: PlayerCombat, Assembly-CSharp
+        m_MethodName: setAir
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2072372092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,6 +1379,8 @@ MonoBehaviour:
   - {fileID: 258765811}
   - {fileID: 1745857255}
   - {fileID: 927681389}
+  currentEnemHP: 0
+  currentEnemHPMax: 100
 --- !u!1 &2085621746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1508,7 +1534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2135791872
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1525,9 +1551,9 @@ RectTransform:
   m_Father: {fileID: 2337646926027985279}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 90.55115, y: -83.76054}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2135791875
@@ -1631,46 +1657,10 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 20
+          m_IntArgument: 22
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2046034947}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2046034946}
-        m_TargetAssemblyTypeName: AttackDriver, Assembly-CSharp
-        m_MethodName: toggleActive
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2046034946}
-        m_TargetAssemblyTypeName: AttackDriver, Assembly-CSharp
-        m_MethodName: SetTimeCost
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 2046034946}
         m_TargetAssemblyTypeName: AttackDriver, Assembly-CSharp
@@ -1679,7 +1669,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 500
+          m_IntArgument: 80
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -1717,6 +1707,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1737992563}
+        m_TargetAssemblyTypeName: PlayerCombat, Assembly-CSharp
+        m_MethodName: toggleAirstrike
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
@@ -2817,6 +2819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923aa7cb19962fa4684c96cea4d7a23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  airStrike: 0
   action: 2
   DeathCanvas: {fileID: 4090290988593262928}
 --- !u!1 &5312958455789714113
@@ -3211,6 +3214,17 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: eaf0abf869d9f4046b222130182bfab7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+--- !u!114 &1737992563 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1611168916, guid: b6f08198ea135a441bf36565f217a227, type: 3}
+  m_PrefabInstance: {fileID: 127915495}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4516344708003009670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882c56e41404e7c4faefe0f890d1f234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2046034946 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2120995301, guid: b6f08198ea135a441bf36565f217a227, type: 3}
@@ -3648,7 +3662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4325842224626131859, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4395586624028371965, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_Color.b
@@ -3840,7 +3854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -3856,6 +3870,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
@@ -3879,11 +3897,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8136022047009160295}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 1737992563}
+    - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
@@ -3903,6 +3929,10 @@ PrefabInstance:
       value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
+      value: setAir
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -3917,6 +3947,10 @@ PrefabInstance:
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
+      value: PlayerCombat, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -3948,6 +3982,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093265205261151177, guid: 942c2d26d1ba0f64fba36ccc88a65a64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
