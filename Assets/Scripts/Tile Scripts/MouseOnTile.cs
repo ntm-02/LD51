@@ -24,21 +24,20 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     // Update is called once per frame
     void Update()
     {
-        /* this no longer is called here
+        // this no longer is called here
         //playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
         if (mouseHovering && !GameManager.IsPlayerMoving)
         {
-            GeneratePathTrail();
+            //GeneratePathTrail();
+            if (gameManager.action == GameManager.Action.moveMode)
+            {
+                GeneratePathTrail();
+            }
+           
             
         }
         
-        if (gameManager.action == GameManager.Action.none)
-        {
-            GeneratePathTrail();
-        }
-
-
-        */
+        
     }
 
     private void GeneratePathTrail()
