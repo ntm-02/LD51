@@ -34,7 +34,6 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
                 GeneratePathTrail();
             }
            
-            
         }
         
         

@@ -78,40 +78,48 @@ public class EnemyTileBasedMovement : MonoBehaviour
             enemyTurn = !enemyTurn;
         }
 
-        if (enemyTurn)            // I think this breaks everything because TilePathFinding is getting used by many scripts at the same time
+        if (enemyTurn)
         {
-            // find path to player, and go to the player as far as possible
 
-            // clears the previous path trail
-            FindObjectOfType<TilePathFinding>().clearPathTrail();
-
-            // finding the tile with player on it
-            Vector2 playerPos = GameManager.PlayerGridPos;
-           // print(playerPos);
-            //print(gridPosition);
-
-            // generating the new path with enemy gridposition as start and the player as the end
-            path = FindObjectOfType<EnemyTilePathFinding>().FindShortestPath(FindObjectOfType<TilePathFinding>().getGrid(), gridPosition, playerPos);
-
+            // move set amount of tiles around current position
             float timePassed = 0f;
-            foreach (GameObject g in path)
-            {
-                timePassed += 1f;
-                // if the path is within the enemy's allotted time, display as gray tinted tiles
-                if (EnemyTime.CheckDecrease(timePassed))
-                {
-                    g.GetComponent<SpriteRenderer>().color = Color.gray;
-                }
-                // else display as red tinted tiles
-                else
-                {
-                    g.GetComponent<SpriteRenderer>().color = Color.red;
-                }
-            }
 
-           // StartCoroutine(FollowPath());
+            StartCoroutine(WanderHelper());
             enemyTurn = false;
 
+        }
+    }
+
+    private void WanderInPlace()
+       {
+            
+        switch(Random.Range(0, 4))
+        {
+            case 0:
+                moveLeft();
+                break;
+            case 1:
+                moveRight();
+                break;
+            case 2:
+                moveUp();
+                break;
+            case 3:
+                moveDown();
+                break;
+            default:
+                break;
+        }
+            
+       }
+
+        IEnumerator WanderHelper()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                WanderInPlace();
+                yield return new WaitForSeconds(0.5f);
+            }
         }
 
         IEnumerator FollowPath()
@@ -147,7 +155,7 @@ public class EnemyTileBasedMovement : MonoBehaviour
             }
         }
 
-    }
+    
     public IEnumerator MoveEnemy(Vector3 direction)
     {
         // decreases player time by 1 second for each tile moved
