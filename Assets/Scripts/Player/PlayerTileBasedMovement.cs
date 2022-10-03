@@ -60,6 +60,11 @@ public class PlayerTileBasedMovement : MonoBehaviour
         gridPosition += Vector2.down;
     }
 
+    public void prematureEnd() {
+        PlayerTime.currPlayerTime = 0;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -69,10 +74,10 @@ public class PlayerTileBasedMovement : MonoBehaviour
             GameManager.IsPlayerTurn = false;
         }
         // press space to reset player time to full
-        if (Input.GetButtonDown("Jump")) // remove this for final game, grants infinite moves by reseting time
+        /*if (Input.GetButtonDown("Jump")) // remove this for final game, grants infinite moves by reseting time
         {
             PlayerTime.ResetTime();
-        }
+        }*/
         //grid = FindObjectOfType<TilePathFinding>().getGrid();
         GameManager.PlayerGridPos = gridPosition; // updating the game manager's player grid position
 
