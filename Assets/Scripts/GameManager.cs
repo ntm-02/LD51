@@ -67,14 +67,17 @@ public class GameManager : MonoBehaviour
     public void PlayerDeath()
     {
         IsPlayerDead = true;
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         DeathCanvas.SetActive(true);
-
     }
     public void ReloadScene()
     {
+        IsPlayerDead = false;
+        IsPlayerTurn = true;
+        PlayerTime.ResetTime();
+        EnemyTime.ResetTime();
         DeathCanvas.SetActive(false);
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
