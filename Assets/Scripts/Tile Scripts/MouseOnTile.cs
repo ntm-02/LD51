@@ -112,26 +112,26 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
                 // player is currently moving
                 GameManager.IsPlayerMoving = true;
                 Vector2 playerPos = FindObjectOfType<PlayerTileBasedMovement>().getGridPos();
-                print(g.transform.position + " " + playerPos);
+               // print(g.transform.position + " " + playerPos);
 
                 if (g.GetComponent<Tile>().gridPos.y > playerPos.y)
                 {
-                    print("moving up");
+                   // print("moving up");
                     FindObjectOfType<PlayerTileBasedMovement>().moveUp();
                 }
                 if (g.GetComponent<Tile>().gridPos.y < playerPos.y)
                 {
-                    print("moving down");
+                    //print("moving down");
                     FindObjectOfType<PlayerTileBasedMovement>().moveDown();
                 }
                 if (g.GetComponent<Tile>().gridPos.x > playerPos.x)
                 {
-                    print("moving right");
+                    //print("moving right");
                     FindObjectOfType<PlayerTileBasedMovement>().moveRight();
                 }
                 if (g.GetComponent<Tile>().gridPos.x < playerPos.x)
                 {
-                    print("moving left");
+                    //print("moving left");
                     FindObjectOfType<PlayerTileBasedMovement>().moveLeft();
                 }
                 yield return new WaitForSeconds(0.5f); // wait one second before moving the player
