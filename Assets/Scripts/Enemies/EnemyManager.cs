@@ -19,9 +19,9 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         endTileGameObject = GameManager.EndingTile.transform.gameObject;
         GameObject[,] grid = tilePathFinding.getGrid();
-        print(grid);
-        print(GameManager.PlayerGridPos);
-        print(endTileGameObject);
+        //print(grid);
+        //print(GameManager.PlayerGridPos);
+        //print(endTileGameObject);
         optimalPlayerPath = TilePathFinding.FindShortestPath(grid, GameManager.PlayerGridPos, endTileGameObject.GetComponent<Tile>().gridPos);
         
 
