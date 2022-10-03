@@ -6,12 +6,15 @@ using UnityEngine;
 public class AttackDriver : MonoBehaviour
 {
     public BoxCollider2D boxCollider;
+    private GameObject gameObj;
     int attackAmount;
 
     // Start is called before the first frame update
     void Start()
     {
         boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
+        gameObj = boxCollider.gameObject;
+        gameObj.SetActive(false);
     }
 
     public void SetIsAttackColliderOn(bool boolean)
