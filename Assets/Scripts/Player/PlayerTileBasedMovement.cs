@@ -10,7 +10,9 @@ public class PlayerTileBasedMovement : MonoBehaviour
     private float timeToMove = 0.2f;
     private GameObject[,] grid;
     private static Vector2 gridPosition = GameManager.PlayerGridPos;
-
+    private AudioSource playerAudio;
+    [SerializeField] private AudioClip moveSound;
+    [SerializeField] private float moveSoundVolume = 1f;
 
     public Vector2 getGridPos()
     {
@@ -30,8 +32,7 @@ public class PlayerTileBasedMovement : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        //transform.position = gridPosition;
-        //transform.position = grid[(int)gridPosition.x, (int)gridPosition.y].transform.position;  // trying something
+        playerAudio = GetComponent<AudioSource>();
 
         yield return new WaitUntil(() => { grid = FindObjectOfType<TilePathFinding>().getGrid(); return grid != null; });
         transform.position = grid[(int)gridPosition.x, (int)gridPosition.y].transform.position;
@@ -85,6 +86,7 @@ public class PlayerTileBasedMovement : MonoBehaviour
     }
     public IEnumerator MovePlayer(Vector3 direction)
     {
+        playerAudio.PlayOneShot(moveSound,moveSoundVolume);
         // decreases player time by 1 second for each tile moved
         PlayerTime.DecreaseTime(1f);
         isMoving = true;
@@ -98,7 +100,7 @@ public class PlayerTileBasedMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
+        //AudioSource.PlayClipAtPoint(moveSound, transform.position, moveSoundVolume);
         // if we don't land exactly in the middle of a tile, this will make sure you end up there
         transform.position = newPos;
         isMoving = false;
