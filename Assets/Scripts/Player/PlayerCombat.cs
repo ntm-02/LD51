@@ -53,7 +53,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePosition - transform.position;
         float mouseAngle = Vector2.SignedAngle(Vector2.right, direction);
-        Debug.Log("angle : " + playerToMouseAngle);
+        //Debug.Log("angle : " + playerToMouseAngle);
         if ((Mathf.Abs(mouseAngle) > 150))
         {
             //Debug.Log("left");
@@ -108,7 +108,8 @@ public class PlayerCombat : MonoBehaviour, IKillable
     public void Die()
     {
         FindObjectOfType<GameManager>().PlayerDeath();
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
     }
 
     public void NotifyDamage()
