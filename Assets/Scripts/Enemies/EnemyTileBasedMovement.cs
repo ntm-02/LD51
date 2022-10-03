@@ -30,8 +30,8 @@ public class EnemyTileBasedMovement : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        yield return new WaitForSeconds(0.1f);
-        grid = FindObjectOfType<TilePathFinding>().getGrid();
+
+        yield return new WaitUntil(() => { grid = FindObjectOfType<TilePathFinding>().getGrid(); return grid != null; });
         gridPosition = grid[1, 1].transform.position;       // sets the gridPosition to [1,1] initially
     }
 

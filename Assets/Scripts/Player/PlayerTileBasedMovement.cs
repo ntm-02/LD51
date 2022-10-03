@@ -32,8 +32,8 @@ public class PlayerTileBasedMovement : MonoBehaviour
     {
         //transform.position = gridPosition;
         //transform.position = grid[(int)gridPosition.x, (int)gridPosition.y].transform.position;  // trying something
-        yield return new WaitForSeconds(0.05f);
-        grid = FindObjectOfType<TilePathFinding>().getGrid();
+
+        yield return new WaitUntil(() => { grid = FindObjectOfType<TilePathFinding>().getGrid(); return grid != null; });
         transform.position = grid[(int)gridPosition.x, (int)gridPosition.y].transform.position;
     }
 
