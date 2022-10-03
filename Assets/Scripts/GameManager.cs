@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public enum Action
     {
-        moving,
+        moveMode,
         attacking,
         none
     }
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         switch(state)
         {
             case 0:
-                newAction = Action.moving;
+                newAction = Action.moveMode;
                 break;
             case 1:
                 newAction = Action.attacking;
