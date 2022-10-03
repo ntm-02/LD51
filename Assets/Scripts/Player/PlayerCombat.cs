@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 public class PlayerCombat : MonoBehaviour, IKillable
 {
     BoxCollider2D boxCollider;
-    GameObject attackCollider;
+    GameObject attackObject;
     DamageableComponent damageableComponent;
     GameObject[] neighborTiles;
     [SerializeField] int damagePerHit = 10;
@@ -21,7 +21,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
     {
         damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
         //boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
-        attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
+        attackObject = this.gameObject.transform.Find("AttackCollider").gameObject;
         //damageLight.enabled = false;
     }
 
@@ -39,17 +39,17 @@ public class PlayerCombat : MonoBehaviour, IKillable
         }
     }
 
+    /* moved to slime enemy script - the player no longer deals damage to themself
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             damageableComponent.TakeDamage(damagePerHit);
         }
-    }
+    }*/
 
     public void OrientAttackCollider()
     {
-
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePosition - transform.position;
         float mouseAngle = Vector2.SignedAngle(Vector2.right, direction);
@@ -96,7 +96,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
             Debug.Log("Up");
         }*/
 
-        attackCollider.transform.eulerAngles = new Vector3 (0, 0, angle.eulerAngles.z);
+        attackObject.transform.eulerAngles = new Vector3 (0, 0, angle.eulerAngles.z);
     }
 
     public void EndPlayerTurn()
@@ -150,7 +150,6 @@ public class PlayerCombat : MonoBehaviour, IKillable
         if (Input.GetButtonDown("Fire1"))
         {
             OrientAttackCollider();
-
         }
     }
 }
