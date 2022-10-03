@@ -11,6 +11,8 @@ public class PlayerCombat : MonoBehaviour, IKillable
     [SerializeField] int damagePerHit = 10;
     [SerializeField] private Light2D damageLight;
 
+    private bool firstTime = true;  // this wil stop us from trying to access the grid before it exists
+
     void Start()
     {
         damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
@@ -22,6 +24,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
     {
         if (!GameManager.IsPlayerMoving)
         {
+            //print(GameManager.PlayerGridPos);
             neighborTiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), GameManager.PlayerGridPos);
             //foreach (GameObject tile in neighborTiles)
             //{
@@ -56,9 +59,25 @@ public class PlayerCombat : MonoBehaviour, IKillable
         damageLight.enabled = false;
     }
 
+    IEnumerator UpdateTileWait()
+    {
+        yield return new WaitForSeconds(0.1f);
+        firstTime = false;
+        if (firstTime)
+        {
+            UpdateTiles();
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        UpdateTiles();
+        if (firstTime)
+        {
+            StartCoroutine(UpdateTileWait());
+        }
+        else
+        {
+            UpdateTiles();
+        }
     }
 }

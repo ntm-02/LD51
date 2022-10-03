@@ -71,6 +71,8 @@ public class TerrainGen : MonoBehaviour
 
     //create tile based on the height of perlin noise
     public GameObject[,] CreateTerrain() {
+
+        offset = Random.value;
         GameObject[,] ret = new GameObject[width, height];
 
         for (int x = 0; x < width; x++) {
@@ -118,18 +120,20 @@ public class TerrainGen : MonoBehaviour
 
 
                     //up is null, right is good OR both are good 
-                    if ((neighbors[1] == null && (neighbors[3] != null && neighbors[3].height == selectionTile.height)) || (neighbors[3] == null && (neighbors[1] != null && neighbors[1].height == selectionTile.height)) || (neighbors[3] != null && neighbors[3].height == selectionTile.height && neighbors[1] != null && neighbors[1].height == selectionTile.height)) {
+                    if ((neighbors[1] == null && (neighbors[3] != null && neighbors[3].type == selectionTile.type)) 
+                        || (neighbors[3] == null && (neighbors[1] != null && neighbors[1].type == selectionTile.type)) 
+                        || (neighbors[3] != null && neighbors[3].type == selectionTile.type && neighbors[1] != null && neighbors[1].type == selectionTile.type)) {
                         ret[x, y].transform.Rotate(0, 0, 90);//top and right
                     } else//bottom null, right fine or bot right fine
-                    if ((neighbors[1] == null && (neighbors[2] != null && neighbors[2].height == selectionTile.height)) || (neighbors[2] == null && (neighbors[1] != null && neighbors[1].height == selectionTile.height)) || (neighbors[2] != null && neighbors[2].height == selectionTile.height && neighbors[1] != null && neighbors[1].height == selectionTile.height))
+                    if ((neighbors[1] == null && (neighbors[2] != null && neighbors[2].type == selectionTile.type)) || (neighbors[2] == null && (neighbors[1] != null && neighbors[1].type == selectionTile.type)) || (neighbors[2] != null && neighbors[2].type == selectionTile.type && neighbors[1] != null && neighbors[1].type == selectionTile.type))
                     {
                         ret[x, y].transform.Rotate(0, 0, 0);//bottom and right
                     } else//up null, left good or topleft fine
-                    if ((neighbors[0] == null && (neighbors[3] != null && neighbors[3].height == selectionTile.height)) || (neighbors[3] == null && (neighbors[0] != null && neighbors[0].height == selectionTile.height)) || (neighbors[3] != null && neighbors[3].height == selectionTile.height && neighbors[0] != null && neighbors[0].height == selectionTile.height))
+                    if ((neighbors[0] == null && (neighbors[3] != null && neighbors[3].type == selectionTile.type)) || (neighbors[3] == null && (neighbors[0] != null && neighbors[0].type == selectionTile.type)) || (neighbors[3] != null && neighbors[3].type == selectionTile.type && neighbors[0] != null && neighbors[0].type == selectionTile.type))
                     {
                         ret[x, y].transform.Rotate(0, 0, 180);//top and left
                     } else//bottom null, left good or left null, bottom good or botleft fine
-                    if ((neighbors[0] == null && (neighbors[2] != null && neighbors[2].height == selectionTile.height)) || (neighbors[2] == null && (neighbors[0] != null && neighbors[0].height == selectionTile.height)) || (neighbors[2] != null && neighbors[2].height == selectionTile.height && neighbors[0] != null && neighbors[0].height == selectionTile.height))
+                    if ((neighbors[0] == null && (neighbors[2] != null && neighbors[2].type == selectionTile.type)) || (neighbors[2] == null && (neighbors[0] != null && neighbors[0].type == selectionTile.type)) || (neighbors[2] != null && neighbors[2].type == selectionTile.type && neighbors[0] != null && neighbors[0].type == selectionTile.type))
                     {
                         ret[x, y].transform.Rotate(0, 0, 270);//bottom and left
                     }
@@ -142,12 +146,14 @@ public class TerrainGen : MonoBehaviour
         Structure startHut = (Resources.Load("starting") as GameObject).GetComponent<Structure>();
         startHut.Start();
 
-
         bool failed = true;
+
+        Vector2 starting = Vector2.zero;
         for (int x = 0; x < height; x++) {
             //print(startHut.doesFitAtPoint(ret, new Vector2(x,0), false));
                 if (startHut.doesFitAtPoint(ret, new Vector2(0, x), false)) {
                     ret = startHut.replaceStructTiles(ret, new Vector2(0, x));
+                    starting = new Vector2(0, x+1);
                     failed = false;
                     break;
                 }
@@ -156,21 +162,51 @@ public class TerrainGen : MonoBehaviour
 
         Structure endGate = (Resources.Load("ending") as GameObject).GetComponent<Structure>();
         endGate.Start();
-
+        bool failed2 = true;
+        Vector2 ending = Vector2.zero;
         for (int x = height; x > 0; x--)
         {
             //print(startHut.doesFitAtPoint(ret, new Vector2(x,0), false));
             if (endGate.doesFitAtPoint(ret, new Vector2(width-3, x), false))
             {
                 ret = endGate.replaceStructTiles(ret, new Vector2(width-3, x));
-                failed = false;
+                ending = new Vector2(width-1, x+2);
+                failed2 = false;
                 break;
             }
 
         }
 
-        if (failed) {
+
+
+        if (failed || failed2)
+        {
             ret = CreateTerrain();
+        }
+        else {
+            try
+            {
+                List<GameObject> availablePath = TilePathFinding.FindShortestPath(ret, starting, ending);
+
+                foreach (GameObject obj in availablePath) {
+                    if (obj.GetComponent<Tile>().type == Tile.TileType.water) {
+                        Transform origTrans = obj.transform;
+                        Vector3 pos = origTrans.position;
+                        Quaternion rot = origTrans.rotation;
+                        Transform parent = origTrans.parent;
+                        Vector2 origGridPos = obj.GetComponent<Tile>().gridPos;
+
+                        GameObject tileObj = Instantiate(Resources.Load("Bridge") as GameObject, pos, rot, parent);
+                        tileObj.GetComponent<Tile>().gridPos = origGridPos;
+                        Destroy(obj);
+                        ret[(int)origGridPos.x, (int)origGridPos.y] = tileObj;
+                    }
+                }
+            }
+            catch (System.ArgumentOutOfRangeException) {
+                ret = CreateTerrain();
+            }
+
         }
 
         return ret;

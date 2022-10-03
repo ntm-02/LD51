@@ -18,9 +18,9 @@ public class EnemyManager : MonoBehaviour
         // wait an arbitrary amount of time so that the map exists when we try to access it
         yield return new WaitForSeconds(0.5f);
         endTileGameObject = GameManager.EndingTile.transform.gameObject;
-
-        optimalPlayerPath = tilePathFinding.FindShortestPath(GameManager.PlayerGridPos, endTileGameObject.transform.position);
-        GameObject[,] grid = FindObjectOfType<TilePathFinding>().getGrid();
+        GameObject[,] grid = tilePathFinding.getGrid();
+        optimalPlayerPath = TilePathFinding.FindShortestPath(grid, GameManager.PlayerGridPos, endTileGameObject.transform.position);
+        
 
         foreach (GameObject tile in grid)
         {

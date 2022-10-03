@@ -39,7 +39,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         //playerPos = FindObjectOfType<PlayerTileBasedMovement>().getGridPos();
         playerPos = GameManager.PlayerGridPos;
         // generating the new path with playerPos as start and the tile that was hovered over as the end
-        path = FindObjectOfType<TilePathFinding>().FindShortestPath(playerPos, transform.parent.parent.GetComponent<Tile>().gridPos);
+        path = TilePathFinding.FindShortestPath(FindObjectOfType<TilePathFinding>().getGrid(), playerPos, transform.parent.parent.GetComponent<Tile>().gridPos);
 
         float timePassed = 0f;
         //PlayerTime.ResetTime();  // reset player time every time we move the pointer/mouse NOTE:This could be done with it's own local time calculation, so we don't affect the player's actual time
@@ -97,7 +97,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
                 // player is currently moving
                 GameManager.IsPlayerMoving = true;
                 Vector2 playerPos = FindObjectOfType<PlayerTileBasedMovement>().getWorldPos();
-                print(playerPos);
+                //print(playerPos);
 
                 if (g.transform.position.y > playerPos.y)
                 {
