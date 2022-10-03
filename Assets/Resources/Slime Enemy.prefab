@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 9041063005379236295}
   - component: {fileID: 9041063005379236293}
   - component: {fileID: 9041063005379236292}
+  - component: {fileID: 9093362188547845861}
   m_Layer: 0
   m_Name: Slime Enemy
   m_TagString: Enemy
@@ -186,3 +187,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4346304, y: 1.2260076}
   m_EdgeRadius: 0
+--- !u!114 &9093362188547845861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041063005379236294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10da22d132f4483439a4306af1040be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

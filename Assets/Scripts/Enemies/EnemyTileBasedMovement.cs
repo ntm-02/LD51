@@ -9,7 +9,7 @@ public class EnemyTileBasedMovement : MonoBehaviour
     private Vector3 newPos;
     private float timeToMove = 0.2f;
     private GameObject[,] grid;
-    private static Vector2 gridPosition = Vector2.zero; // change this later
+    [SerializeField] private Vector2 gridPosition = Vector2.zero; // initializes to 0,0 will get set by public method
 
 
     private Vector2 getGridPos()
@@ -22,20 +22,21 @@ public class EnemyTileBasedMovement : MonoBehaviour
         return new Vector2(transform.position.x, transform.position.y);
     }
 
-    private static void setGridPos(Vector2 newGridPos)
-    {
-        gridPosition = newGridPos;
-    }
+    
 
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         grid = FindObjectOfType<TilePathFinding>().getGrid();
-        gridPosition = grid[1, 1].transform.position;       // sets the gridPosition to [1,1] initially
+        print("world position given grid position: " + grid[(int)gridPosition.x, (int)gridPosition.y].transform.position);
+        print("actual world position: " + transform.position);
     }
 
-
+    public void SetEnemyGridPos(Vector2 pos)
+    {
+        gridPosition = pos;
+    }
     public void moveUp()
     {
         StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y + 1].transform.position - transform.position));

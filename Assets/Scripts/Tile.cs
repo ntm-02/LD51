@@ -56,7 +56,7 @@ public class Tile : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             hasEnemy = true;
-            Debug.Log(collision.gameObject.name);
+            //Debug.Log(collision.gameObject.name);
             collisionObject = collision.gameObject;
         }
     }
