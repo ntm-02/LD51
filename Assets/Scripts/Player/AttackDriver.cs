@@ -39,12 +39,16 @@ public class AttackDriver : MonoBehaviour
     }
     public void ChangeColliderX(float x)
     {
-        //boxCollider.gameObject.transform.localScale.x == new ;
+        Vector3 temp = transform.localScale;
+        temp.x = x;
+        transform.localScale = temp;
     }
 
     public void ChangeColliderY(float y)
     {
-
+        Vector3 temp = transform.localScale;
+        temp.y = y;
+        transform.localScale = temp;
     }
 
     public void toggleActive()
