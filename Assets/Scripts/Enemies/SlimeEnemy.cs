@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeEnemySpawner : MonoBehaviour, IKillable 
+public class SlimeEnemy : MonoBehaviour, IKillable 
 {
+    UnityEngine.Rendering.Universal.Light2D damageLight;
     public void Die()
     {
         Destroy(gameObject);
@@ -16,24 +17,26 @@ public class SlimeEnemySpawner : MonoBehaviour, IKillable
 
     public void NotifyDamage()
     {
-        throw new System.NotImplementedException();
+        StartCoroutine(DamageLightToggle());
+
+    }
+
+    IEnumerator DamageLightToggle()
+    {
+        damageLight.enabled = true;
+        yield return new WaitForSeconds(.5f);
+        damageLight.enabled = false;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        damageLight = GetComponentInParent<UnityEngine.Rendering.Universal.Light2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Instantiate(Resources.Load("Slime Enemy") as GameObject, Vector3.zero, Quaternion.identity);
+        
     }
-
-    // calculate the shortest path from the player to the exit
-    // along that path, randomly spawn enemies
-    // get where the player spawns
-    // get where the exit is
-    // set an offset bias to populate enemies around the path
 }

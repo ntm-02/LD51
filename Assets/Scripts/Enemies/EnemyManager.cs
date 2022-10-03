@@ -97,8 +97,8 @@ public class EnemyManager : MonoBehaviour
 
         if (selectedPlayerPathAdjacentTile is null) InstantiateRandomEnemy(playerPathAdjacentTiles, gridPos); // if the tile is null run the method again to get a new random tile index
 
-        int randomVal = UnityEngine.Random.Range(-20, 1); // was 0, 2
-        if (randomVal > 0)
+        int randomVal = UnityEngine.Random.Range(0, 40); // was 0, 2
+        if (randomVal == 1)
         {
             GameObject newEnemy = Instantiate(enemyTypes[UnityEngine.Random.Range(0, enemyTypes.Count)], selectedPlayerPathAdjacentTile.transform.position, Quaternion.identity, transform);
             newEnemy.GetComponent<EnemyTileBasedMovement>().SetEnemyGridPos(gridPos);
@@ -112,7 +112,7 @@ public class EnemyManager : MonoBehaviour
         {
             // implement other enemies that have a load prefab method
             // could make an interface like ISpawnable or something for spawning stuff other than enemies
-            gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab()
+            gameObject.AddComponent<SlimeEnemy>().LoadPrefab()
             /*gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
             gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
             gameObject.AddComponent<SlimeEnemySpawner>().LoadPrefab(),
