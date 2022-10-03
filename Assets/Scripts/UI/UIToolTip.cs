@@ -39,7 +39,24 @@ public class UIToolTip : MonoBehaviour
                 text.text = "End your turn.";
                 break;
             case 7:
-                text.text = "Return to the main action menu";
+                text.text = "Return to the previous menu";
+                break;
+            // Attack Texts are from this point under -------------------------------
+            case 20: // Slash
+                text.text = "Deal 40 Damage in a short wide-range. Costs 2 seconds.";
+                break;
+            case 21: // Arrow
+                text.text = "Deal 20 Damage in a long line. Costs 5 seconds.";
+                break;
+            case 22: // Airstrike
+                text.text = "Deal 80 damage to a single target. Costs 8 seconds.";
+                break;
+            case 23: // Defend
+                text.text = "reduce damage -- dave pls add";
+                break;
+            // Item Texts are from this point under ---------------------------------
+            case 60:
+                text.text = "Consume a health potion to heal 20 HP.";
                 break;
             default:
                 text.text = "Select an action or end your turn.";

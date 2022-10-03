@@ -20,7 +20,7 @@ public class MoveIndicator : MonoBehaviour
         // if enemy is in tile swap animation to red\
         Animator anim = indicator.gameObject.GetComponent<Animator>();
         // if condition
-        Tile tileScript = GetComponent<Tile>(); // ????
+        Tile tileScript = GetComponent<Tile>(); 
         if (tileScript == null)
         {
             Debug.Log("tile.cs not found in parent of parent of the tile button");
