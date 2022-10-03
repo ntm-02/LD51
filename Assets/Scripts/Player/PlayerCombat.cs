@@ -19,9 +19,9 @@ public class PlayerCombat : MonoBehaviour, IKillable
 
     void Start()
     {
-       damageableComponent = GetComponent<DamageableComponent>();
+        damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
         //boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
-       // attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
+        // attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
         //damageLight.enabled = false;
     }
 
@@ -30,7 +30,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
         if (!GameManager.IsPlayerMoving)
         {
             //print(GameManager.PlayerGridPos);
-            neighborTiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), GameManager.PlayerGridPos);
+            //neighborTiles = TilePathFinding.adjacentToPoint(FindObjectOfType<TilePathFinding>().getGrid(), GameManager.PlayerGridPos);
             //foreach (GameObject tile in neighborTiles)
             //{
             //    Debug.Log(tile.GetComponent<Tile>().GetCollisionObject().name);
@@ -67,7 +67,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
             angle.eulerAngles = new Vector3(0, 0, 270);
         }
 
-        attackCollider.transform.rotation = angle;
+       // attackCollider.transform.rotation = angle;
     }
 
     public void EndPlayerTurn()

@@ -63,6 +63,11 @@ public class PlayerTileBasedMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Setting player turn up
+        if (!GameManager.IsPlayerMoving && PlayerTime.currPlayerTime == 0 && GameManager.IsPlayerTurn)
+        {
+            GameManager.IsPlayerTurn = false;
+        }
         // press space to reset player time to full
         if (Input.GetButtonDown("Jump")) // remove this for final game, grants infinite moves by reseting time
         {

@@ -12,7 +12,8 @@ public class EnemyTileBasedMovement : MonoBehaviour
     [SerializeField] private Vector2 gridPosition = Vector2.zero; // initializes to 0,0 will get set by public method
 
     List<GameObject> path;
-    private bool enemyTurn = false;
+    private bool mayMove = false;
+    private bool currentlyMoving = false;
 
 
     private Vector2 getGridPos()
@@ -36,7 +37,6 @@ public class EnemyTileBasedMovement : MonoBehaviour
         //print("actual world position: " + transform.position);
 
     }
-
     public void SetEnemyGridPos(Vector2 pos)
     {
         gridPosition = pos;
@@ -66,6 +66,13 @@ public class EnemyTileBasedMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        // don't set mayMove to true if currently moving
+        mayMove = !GameManager.IsPlayerTurn;
+        if (currentlyMoving)
+        {
+            mayMove = false;
+        }
         // press space to reset enemy time to full
         if (Input.GetButtonDown("Jump")) // remove this for final game, grants infinite moves by reseting time
         {
@@ -75,19 +82,30 @@ public class EnemyTileBasedMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             // toggle enemy turn
-            enemyTurn = !enemyTurn;
+            mayMove = !mayMove;
         }
 
-        if (enemyTurn)
+        if (mayMove)
         {
 
             // move set amount of tiles around current position
             float timePassed = 0f;
 
             StartCoroutine(WanderHelper());
-            enemyTurn = false;
+            mayMove = false;
+            currentlyMoving = true;
+            StartCoroutine(SetPlayerTurnTrue());
 
         }
+    }
+
+
+    IEnumerator SetPlayerTurnTrue()
+    {
+        yield return new WaitForSeconds(2f);  // this is how long it takes the enemies to finish moving
+        GameManager.IsPlayerTurn = true;  // hmmmmm
+        PlayerTime.ResetTime();
+        currentlyMoving = false;
     }
 
     private void WanderInPlace()
@@ -115,6 +133,7 @@ public class EnemyTileBasedMovement : MonoBehaviour
 
         IEnumerator WanderHelper()
         {
+        print("moving enemy");
             for (int i = 0; i < 4; i++)
             {
                 WanderInPlace();
@@ -137,19 +156,19 @@ public class EnemyTileBasedMovement : MonoBehaviour
 
                 if (g.transform.position.y > enemyPos.y)
                 {
-                    FindObjectOfType<EnemyTileBasedMovement>().moveUp();
+                    moveUp();
                 }
                 if (g.transform.position.y < enemyPos.y)
                 {
-                    FindObjectOfType<EnemyTileBasedMovement>().moveDown();
+                    moveDown();
                 }
                 if (g.transform.position.x > enemyPos.x)
                 {
-                    FindObjectOfType<EnemyTileBasedMovement>().moveRight();
+                    moveRight();
                 }
                 if (g.transform.position.x < enemyPos.x)
                 {
-                    FindObjectOfType<EnemyTileBasedMovement>().moveLeft();
+                    moveLeft();
                 }
                 yield return new WaitForSeconds(0.5f); // wait before moving the enemy
             }

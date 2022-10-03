@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //// specify important game states here ////
-    public static bool IsPlayerTurn = false;
+    public static bool IsPlayerTurn = true;
     public static bool IsPlayerDead = false;
     public static bool HasEscaped = false;
     public static bool IsReloadingLevel = false;
