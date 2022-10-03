@@ -8,6 +8,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     GameObject playerTile;
     List<GameObject> path;
     Vector2 playerPos = Vector2.zero;
+    GameManager gameManager;
 
     private bool mouseHovering = false;
     /*public void GotToTile()
@@ -17,7 +18,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -26,7 +27,11 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         //playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
         if (mouseHovering && !GameManager.IsPlayerMoving)
         {
-            GeneratePathTrail();
+            if (gameManager.action == GameManager.Action.moving)
+            {
+                Debug.Log("True");
+                //GeneratePathTrail();
+            }
         }
     }
 
