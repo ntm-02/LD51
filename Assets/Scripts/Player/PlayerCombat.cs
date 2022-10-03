@@ -21,9 +21,10 @@ public class PlayerCombat : MonoBehaviour, IKillable
     {
         damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
         //boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
-        // attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
+        attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
         //damageLight.enabled = false;
     }
+
 
     public void UpdateTiles()
     {
@@ -48,26 +49,54 @@ public class PlayerCombat : MonoBehaviour, IKillable
 
     public void OrientAttackCollider()
     {
-        playerToMouseAngle = Mathf.Abs(Vector3.Angle(transform.position, Input.mousePosition));
 
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mousePosition - transform.position;
+        float mouseAngle = Vector2.SignedAngle(Vector2.right, direction);
+        Debug.Log("angle : " + playerToMouseAngle);
+        if ((Mathf.Abs(mouseAngle) > 150))
+        {
+            //Debug.Log("left");
+            angle.eulerAngles = new Vector3(0, 0, 0);
+        } else if (Mathf.Abs(mouseAngle) < 40) {
+            //Debug.Log("right");
+            angle.eulerAngles = new Vector3(0, 0, 180);
+        } else if ((mouseAngle <= 150) && (mouseAngle >= 40))                   // facing north
+        {
+            //Debug.Log("North");
+            angle.eulerAngles = new Vector3(0, 0, 270);
+        }
+        else if ((mouseAngle >= -150) && (mouseAngle <= -40))
+        {
+            //Debug.Log("South");
+            angle.eulerAngles = new Vector3(0, 0, 90);
+        }
+        
+
+        /*playerToMouseAngle = Mathf.Abs(Vector3.Angle(transform.position, Input.mousePosition));
+        Debug.Log("angle : " + playerToMouseAngle);
         if (playerToMouseAngle >= 0f && playerToMouseAngle < 90f)
         {
             angle.eulerAngles = new Vector3(0, 0, 0);
+            Debug.Log("Left");
         }
         else if (playerToMouseAngle >= 90f && playerToMouseAngle < 180f)
         {
             angle.eulerAngles = new Vector3(0, 0, 90);
+            Debug.Log("Down");
         }
         else if (playerToMouseAngle >= 180f && playerToMouseAngle < 270f)
         {
             angle.eulerAngles = new Vector3(0, 0, 180);
+            Debug.Log("Right");
         }
         else
         {
             angle.eulerAngles = new Vector3(0, 0, 270);
-        }
+            Debug.Log("Up");
+        }*/
 
-       // attackCollider.transform.rotation = angle;
+        attackCollider.transform.eulerAngles = new Vector3 (0, 0, angle.eulerAngles.z);
     }
 
     public void EndPlayerTurn()
@@ -116,5 +145,11 @@ public class PlayerCombat : MonoBehaviour, IKillable
         }
 
         //OrientAttackCollider();
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            OrientAttackCollider();
+
+        }
     }
 }
