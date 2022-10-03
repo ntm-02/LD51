@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 
-public class TilePathFinding : MonoBehaviour
+public class EnemyTilePathFinding : MonoBehaviour
 {
     GameObject[,] grid;
     
@@ -12,7 +12,7 @@ public class TilePathFinding : MonoBehaviour
     IEnumerator Start()
     {
         yield return new WaitForSeconds(0.01f);
-        grid = FindObjectOfType<TerrainGen>().CreateTerrain();
+        grid = FindObjectOfType<TilePathFinding>().getGrid();
     }
 
     // this will reset all the tiles back to their normal colors
@@ -24,27 +24,16 @@ public class TilePathFinding : MonoBehaviour
         }
     }
 
-    public GameObject[,] getGrid()
-    {
-        return grid;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("i")) {
-            grid = FindObjectOfType<TerrainGen>().CreateTerrain();
-            /*foreach (GameObject g in FindShortestPath(Vector2.zero, new Vector2(20, 20))) {
-                //print("something");
-                g.GetComponent<SpriteRenderer>().color = Color.gray;
-            }*/
-        }
+       
     }
 
 
 
     // returns the shortest path as a list of GameObjects that are tiles in the grid
-    public static List<GameObject> FindShortestPath(GameObject[,] grid, Vector2 playerpos, Vector2 targetpos)
+    public List<GameObject> FindShortestPath(GameObject[,] grid, Vector2 playerpos, Vector2 targetpos)
     {
         //print("player: " + playerpos + " target: " + targetpos);
 
@@ -128,7 +117,7 @@ public class TilePathFinding : MonoBehaviour
             //FindObjectOfType<TerrainGen>().DisplayTerrain();
         }
 
-    private static void resetUsed(GameObject[,] grid, HashSet<GameObject> used)
+    private void resetUsed(GameObject[,] grid, HashSet<GameObject> used)
     {
         foreach (GameObject g in grid)
         {
@@ -136,7 +125,7 @@ public class TilePathFinding : MonoBehaviour
         }
     }
 
-    public static List<T> notNull<T>(IEnumerable<T> input) {
+    private List<T> notNull<T>(IEnumerable<T> input) {
         List<T> ret = new();
 
         foreach (T b in input) {
@@ -149,7 +138,7 @@ public class TilePathFinding : MonoBehaviour
     }
 
 
-    public static GameObject[] adjacentToPoint(GameObject[,] actingArray, Vector2 point)
+    private GameObject[] adjacentToPoint(GameObject[,] actingArray, Vector2 point)
     {
         GameObject [] ret = new GameObject[4];
         //x column from bot left

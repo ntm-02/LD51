@@ -11,6 +11,9 @@ public class EnemyTileBasedMovement : MonoBehaviour
     private GameObject[,] grid;
     [SerializeField] private Vector2 gridPosition = Vector2.zero; // initializes to 0,0 will get set by public method
 
+    List<GameObject> path;
+    private bool enemyTurn = false;
+
 
     private Vector2 getGridPos()
     {
@@ -29,8 +32,8 @@ public class EnemyTileBasedMovement : MonoBehaviour
     {
         yield return new WaitUntil(() => { grid = FindObjectOfType<TilePathFinding>().getGrid(); return grid != null; });
         grid = FindObjectOfType<TilePathFinding>().getGrid();
-        print("world position given grid position: " + grid[(int)gridPosition.x, (int)gridPosition.y].transform.position);
-        print("actual world position: " + transform.position);
+        //print("world position given grid position: " + grid[(int)gridPosition.x, (int)gridPosition.y].transform.position);
+        //print("actual world position: " + transform.position);
 
     }
 
@@ -63,19 +66,92 @@ public class EnemyTileBasedMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // press space to reset player time to full
+        // press space to reset enemy time to full
         if (Input.GetButtonDown("Jump")) // remove this for final game, grants infinite moves by reseting time
         {
-            PlayerTime.ResetTime();
+            EnemyTime.ResetTime();
         }
-        //grid = FindObjectOfType<TilePathFinding>().getGrid();
-        //GameManager.EnemyGridPos = gridPosition; // updating the game manager's player grid position
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // toggle enemy turn
+            enemyTurn = !enemyTurn;
+        }
+
+        if (enemyTurn)            // I think this breaks everything because TilePathFinding is getting used by many scripts at the same time
+        {
+            // find path to player, and go to the player as far as possible
+
+            // clears the previous path trail
+            FindObjectOfType<TilePathFinding>().clearPathTrail();
+
+            // finding the tile with player on it
+            Vector2 playerPos = GameManager.PlayerGridPos;
+           // print(playerPos);
+            //print(gridPosition);
+
+            // generating the new path with enemy gridposition as start and the player as the end
+            path = FindObjectOfType<EnemyTilePathFinding>().FindShortestPath(FindObjectOfType<TilePathFinding>().getGrid(), gridPosition, playerPos);
+
+            float timePassed = 0f;
+            foreach (GameObject g in path)
+            {
+                timePassed += 1f;
+                // if the path is within the enemy's allotted time, display as gray tinted tiles
+                if (EnemyTime.CheckDecrease(timePassed))
+                {
+                    g.GetComponent<SpriteRenderer>().color = Color.gray;
+                }
+                // else display as red tinted tiles
+                else
+                {
+                    g.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+            }
+
+           // StartCoroutine(FollowPath());
+            enemyTurn = false;
+
+        }
+
+        IEnumerator FollowPath()
+        {
+            foreach (GameObject g in path)
+            {
+                // if the next tile is red stop moving--ran out of time
+                if (g.GetComponent<SpriteRenderer>().color == Color.red)
+                {
+                    break;
+                }
+
+                // enemy is currently moving
+                Vector2 enemyPos = this.transform.position;
+
+                if (g.transform.position.y > enemyPos.y)
+                {
+                    FindObjectOfType<EnemyTileBasedMovement>().moveUp();
+                }
+                if (g.transform.position.y < enemyPos.y)
+                {
+                    FindObjectOfType<EnemyTileBasedMovement>().moveDown();
+                }
+                if (g.transform.position.x > enemyPos.x)
+                {
+                    FindObjectOfType<EnemyTileBasedMovement>().moveRight();
+                }
+                if (g.transform.position.x < enemyPos.x)
+                {
+                    FindObjectOfType<EnemyTileBasedMovement>().moveLeft();
+                }
+                yield return new WaitForSeconds(0.5f); // wait before moving the enemy
+            }
+        }
 
     }
     public IEnumerator MoveEnemy(Vector3 direction)
     {
         // decreases player time by 1 second for each tile moved
-        PlayerTime.DecreaseTime(1f);
+        EnemyTime.DecreaseTime(0.1f);
         isMoving = true;
         float elapsedTime = 0;
         origPos = transform.position;
