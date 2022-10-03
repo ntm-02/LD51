@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: de8c11c586bd24b48a86b7b0383ad5e3
   - enabled: 1
+    path: Assets/Scenes/Copy of Casey scene.unity
+    guid: a9c75d638eca0744bb3327691b1261e3
+  - enabled: 1
     path: Assets/Scenes/JosephScene.unity
     guid: 31bafbc4816b8024e9c783bda4c5c331
   - enabled: 1
