@@ -9,6 +9,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     List<GameObject> path;
     Vector2 playerPos = Vector2.zero;
     GameManager gameManager;
+    PlayerCombat playerCombat; // im sorry
 
     private bool mouseHovering = false;
     /*public void GotToTile()
@@ -19,6 +20,7 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        playerCombat = FindObjectOfType<PlayerCombat>();
     }
 
     // Update is called once per frame
@@ -136,6 +138,11 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
             GameManager.IsPlayerMoving = false;
 
         }
+    }
+
+    public void OrientAttackDriver()
+    {
+        playerCombat.OrientAttackCollider();
     }
 
 }

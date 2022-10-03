@@ -41,6 +41,7 @@ public class UIToolTip : MonoBehaviour
             case 7:
                 text.text = "Return to the previous menu";
                 break;
+            
             // Attack Texts are from this point under -------------------------------
             case 20: // Slash
                 text.text = "Deal 40 Damage in a short wide-range. 2 sec.";
@@ -53,6 +54,9 @@ public class UIToolTip : MonoBehaviour
                 break;
             case 23: // Defend
                 text.text = "reduce damage -- dave pls add";
+                break;
+            case 59:
+                text.text = "Hits the highlighted area. Click grid to change";
                 break;
             // Item Texts are from this point under ---------------------------------
             case 60:

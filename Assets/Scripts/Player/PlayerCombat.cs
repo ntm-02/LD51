@@ -145,10 +145,13 @@ public class PlayerCombat : MonoBehaviour, IKillable
         }
 
         //OrientAttackCollider();
-
+        /*
         if (Input.GetButtonDown("Fire1"))
         {
             OrientAttackCollider();
         }
+        */
     }
+
+    
 }
