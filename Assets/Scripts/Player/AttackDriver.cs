@@ -97,4 +97,13 @@ public class AttackDriver : MonoBehaviour
 
         }
     }
+
+    public void ButtonOff(GameObject obj)
+    {
+        Button button = obj.GetComponent<Button>();
+        button.enabled = false;
+        // disable object
+        obj.GetComponent<Image>().color = Color.black;
+        gameObject.SetActive(false);
+    }
 }
