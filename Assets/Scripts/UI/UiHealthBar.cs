@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class UiHealthBar : MonoBehaviour
 {
     [SerializeField] Image healthbar;
+    [SerializeField] TextMeshPro textMesh;
     private DamageableComponent playerDmgComp;
 
     // Start is called before the first frame update
@@ -20,6 +22,7 @@ public class UiHealthBar : MonoBehaviour
         if (playerDmgComp != null)
         {
             healthbar.fillAmount = playerDmgComp.GetHealthPercentage();
+            textMesh.text = playerDmgComp.GetCurrentHealth() + "/100";
         }
     }
 
