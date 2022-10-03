@@ -43,24 +43,44 @@ public class EnemyTileBasedMovement : MonoBehaviour
     }
     public void moveUp()
     {
-        StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y + 1].transform.position - transform.position));
-        gridPosition += Vector2.up;
+        if (gridPosition.y + 1 < grid.GetLength(1) - 1)
+        {
+            StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y + 1].transform.position - transform.position));
+            gridPosition += Vector2.up;
+        }
+        //StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y + 1].transform.position - transform.position));
+        //gridPosition += Vector2.up;
     }
 
     public void moveRight()
     {
-        StartCoroutine(MoveEnemy(grid[(int)gridPosition.x + 1, (int)gridPosition.y].transform.position - transform.position));
-        gridPosition += Vector2.right;
+        if (gridPosition.x + 1 < grid.GetLength(0) - 1)
+        {
+            StartCoroutine(MoveEnemy(grid[(int)gridPosition.x + 1, (int)gridPosition.y].transform.position - transform.position));
+            gridPosition += Vector2.right;
+        }
+        //StartCoroutine(MoveEnemy(grid[(int)gridPosition.x + 1, (int)gridPosition.y].transform.position - transform.position));
+        //gridPosition += Vector2.right;
     }
     public void moveLeft()
     {
-        StartCoroutine(MoveEnemy(grid[(int)gridPosition.x - 1, (int)gridPosition.y].transform.position - transform.position));
-        gridPosition += Vector2.left;
+        if (gridPosition.x - 1 >= 0)
+        {
+            StartCoroutine(MoveEnemy(grid[(int)gridPosition.x - 1, (int)gridPosition.y].transform.position - transform.position));
+            gridPosition += Vector2.left;
+        }
+        //StartCoroutine(MoveEnemy(grid[(int)gridPosition.x - 1, (int)gridPosition.y].transform.position - transform.position));
+        //gridPosition += Vector2.left;
     }
     public void moveDown()
     {
-        StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y - 1].transform.position - transform.position));
-        gridPosition += Vector2.down;
+        if (gridPosition.y - 1 >= 0)
+        {
+            StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y - 1].transform.position - transform.position));
+            gridPosition += Vector2.down;
+        }
+        //StartCoroutine(MoveEnemy(grid[(int)gridPosition.x, (int)gridPosition.y - 1].transform.position - transform.position));
+        //gridPosition += Vector2.down;
     }
 
     // Update is called once per frame
@@ -133,7 +153,7 @@ public class EnemyTileBasedMovement : MonoBehaviour
 
         IEnumerator WanderHelper()
         {
-        print("moving enemy");
+        //print("moving enemy");
             for (int i = 0; i < 4; i++)
             {
                 WanderInPlace();

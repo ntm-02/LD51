@@ -70,6 +70,7 @@ public class Structure : MonoBehaviour
 
                     GameObject tileObj = Instantiate(resolvedStructure[x, y], pos, rot, parent);
                     tileObj.GetComponent<Tile>().gridPos = new Vector2(placePos.x + x, placePos.y + y);
+                    //print(tileObj.name + " " + tileObj.GetComponent<Tile>().gridPos);
                     grid[(int)placePos.x + x, (int)placePos.y + y] = tileObj;
                 }
             }
