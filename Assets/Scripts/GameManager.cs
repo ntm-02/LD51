@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     {
         IsPlayerDead = false;
         IsPlayerTurn = true;
+        IsPlayerMoving = false;
         PlayerTime.ResetTime();
         EnemyTime.ResetTime();
         DeathCanvas.SetActive(false);
