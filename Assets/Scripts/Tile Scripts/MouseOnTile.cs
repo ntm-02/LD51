@@ -24,15 +24,21 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     // Update is called once per frame
     void Update()
     {
+        /* this no longer is called here
         //playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
         if (mouseHovering && !GameManager.IsPlayerMoving)
         {
-            if (gameManager.action == GameManager.Action.moving)
-            {
-                Debug.Log("True");
-                //GeneratePathTrail();
-            }
+            GeneratePathTrail();
+            
         }
+        
+        if (gameManager.action == GameManager.Action.none)
+        {
+            GeneratePathTrail();
+        }
+
+
+        */
     }
 
     private void GeneratePathTrail()
@@ -70,7 +76,10 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     {
         if (!GameManager.IsPlayerMoving)
         {
-            GeneratePathTrail();
+            if (gameManager.action == GameManager.Action.moveMode) // if action is moving
+            {
+                GeneratePathTrail();
+            }
         }
         mouseHovering = true;
     }
@@ -79,7 +88,10 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     {
         if (!GameManager.IsPlayerMoving)
         {
-            StartCoroutine(MouseClickCoroutine());
+            if (gameManager.action == GameManager.Action.moveMode) // if action is moving
+            {
+                StartCoroutine(MouseClickCoroutine());
+            }
         }
     }
 
