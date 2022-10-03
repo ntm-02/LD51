@@ -33,7 +33,7 @@ public class AttackDriver : MonoBehaviour
     }
     private void ChangeColliderX(float x)
     {
-        boxCollider.gameObject.transform.localScale.x == new ;
+        //boxCollider.gameObject.transform.localScale.x == new ;
     }
 
     private void ChangeColliderY(float y)
