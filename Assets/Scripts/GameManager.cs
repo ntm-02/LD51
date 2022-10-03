@@ -110,4 +110,28 @@ public class GameManager : MonoBehaviour
             action = newAction;
         }
     }
+
+    public void SetAction(int state)
+    {
+        Action newAction;
+        switch (state)
+        {
+            case 0:
+                newAction = Action.moveMode;
+                break;
+            case 1:
+                newAction = Action.attacking;
+                break;
+            case 2:
+                newAction = Action.none;
+                break;
+            default:
+                Debug.Log("button was set up improperly - gave GameManager.SetAction() an invalid int. Valid 0-2. Set to Default - none");
+                newAction = Action.none;
+                break;
+        }
+       
+        action = newAction;
+        
+    }
 }

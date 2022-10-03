@@ -8,13 +8,15 @@ using TMPro;
 public class UiHealthBar : MonoBehaviour
 {
     [SerializeField] Image healthbar;
-    [SerializeField] TextMeshPro textMesh;
+    [SerializeField] TextMeshProUGUI textMesh;
     private DamageableComponent playerDmgComp;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FindObj());
+        playerDmgComp = GameObject.Find("Player").GetComponent<DamageableComponent>();
+
+        //StartCoroutine(FindObj());
     }
 
     void Update()

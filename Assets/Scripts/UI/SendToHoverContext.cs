@@ -21,7 +21,7 @@ public class SendToHoverContext : MonoBehaviour
         if (tileScript.hasEnemy)
         {
             // do special behavior for what type of enemy
-            hoverContext.UpdateContext(10);
+            hoverContext.UpdateContext(10); // 10 refers to slime enemy type
             GameObject enemyObj = tileScript.GetCollisionObject();
             // tmw they dont have a healthbar yet
 
@@ -30,7 +30,7 @@ public class SendToHoverContext : MonoBehaviour
             hoverContext.UpdateContext(state);
 
         }
-        Debug.Log("Sent!");
+        //Debug.Log("Sent!");
     }
 
 }

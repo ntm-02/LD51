@@ -31,7 +31,7 @@ public class HoverContext : MonoBehaviour
     public void UpdateContext(int state)
     {
         menuShow = state;
-        Debug.Log(state);
+        //Debug.Log(state);
         // additional behaviors
         switch(state)
         {

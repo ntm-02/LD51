@@ -19,7 +19,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
 
     void Start()
     {
-        // damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
+       damageableComponent = GetComponent<DamageableComponent>();
         //boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
        // attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
         //damageLight.enabled = false;
