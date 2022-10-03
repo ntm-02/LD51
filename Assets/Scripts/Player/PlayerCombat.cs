@@ -107,7 +107,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
 
     public void Die()
     {
-        GameManager.IsPlayerDead = true;
+        FindObjectOfType<GameManager>().PlayerDeath();
         Destroy(gameObject);
     }
 
