@@ -28,7 +28,16 @@ public class AttackDriver : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            gameObject.GetComponentInParent<DamageableComponent>().TakeDamage(attackAmount);
+            collision.gameObject.GetComponentInChildren<DamageableComponent>().TakeDamage(attackAmount);
         }
+    }
+    private void ChangeColliderX(float x)
+    {
+        boxCollider.gameObject.transform.localScale.x == new ;
+    }
+
+    private void ChangeColliderY(float y)
+    {
+
     }
 }

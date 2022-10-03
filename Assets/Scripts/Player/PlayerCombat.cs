@@ -39,13 +39,14 @@ public class PlayerCombat : MonoBehaviour, IKillable
         }
     }
 
+    /* moved to slime enemy script - the player no longer deals damage to themself
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             damageableComponent.TakeDamage(damagePerHit);
         }
-    }
+    }*/
 
     public void OrientAttackCollider()
     {

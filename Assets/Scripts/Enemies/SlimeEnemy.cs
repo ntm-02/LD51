@@ -5,6 +5,8 @@ using UnityEngine;
 public class SlimeEnemy : MonoBehaviour, IKillable 
 {
     UnityEngine.Rendering.Universal.Light2D damageLight;
+    [SerializeField] int damagePerHit = 10;
+
     public void Die()
     {
         Destroy(gameObject);
@@ -38,5 +40,17 @@ public class SlimeEnemy : MonoBehaviour, IKillable
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //Debug.Log("test");
+            collision.gameObject.GetComponent<DamageableComponent>().TakeDamage(damagePerHit); // this should be fine as long as you dont contact before start or something
+        } else
+        {
+           // Debug.Log("no");
+        }
     }
 }
