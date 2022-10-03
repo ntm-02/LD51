@@ -74,16 +74,16 @@ public class EnemyTileBasedMovement : MonoBehaviour
             mayMove = false;
         }
         // press space to reset enemy time to full
-        if (Input.GetButtonDown("Jump")) // remove this for final game, grants infinite moves by reseting time
+        /*if (Input.GetButtonDown("Jump")) // remove this for final game, grants infinite moves by reseting time
         {
             EnemyTime.ResetTime();
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.E))
+        /*if (Input.GetKeyDown(KeyCode.E))
         {
             // toggle enemy turn
             mayMove = !mayMove;
-        }
+        }*/
 
         if (mayMove)
         {

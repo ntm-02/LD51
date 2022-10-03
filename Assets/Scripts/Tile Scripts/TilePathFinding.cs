@@ -32,13 +32,13 @@ public class TilePathFinding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("i")) {
-            grid = FindObjectOfType<TerrainGen>().CreateTerrain();
+        //if (Input.GetKeyDown("i")) {
+        //    grid = FindObjectOfType<TerrainGen>().CreateTerrain();
             /*foreach (GameObject g in FindShortestPath(Vector2.zero, new Vector2(20, 20))) {
                 //print("something");
                 g.GetComponent<SpriteRenderer>().color = Color.gray;
             }*/
-        }
+        //}
     }
 
 
