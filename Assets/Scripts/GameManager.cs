@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static bool IsPlayerMoving = false;
     public static bool IsEnemyMoving = false;
     public static bool InCutscene = false;
+    public bool airStrike = false;
 
     public Action action = Action.none; // Controlled by buttons in the UI canvas.
 

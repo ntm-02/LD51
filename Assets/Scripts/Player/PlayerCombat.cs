@@ -153,6 +153,14 @@ public class PlayerCombat : MonoBehaviour, IKillable
         }
         */
     }
+    public bool isAirstrike = false;
+    public void toggleAirstrike()
+    {
+        isAirstrike = !isAirstrike;
+    }
 
-    
+    public void setAir(bool set)
+    {
+        isAirstrike = set;
+    }
 }

@@ -10,6 +10,7 @@ public class AttackDriver : MonoBehaviour
     private GameObject gameObj;
     private int attackAmount;
     public int timeCost = 0;
+    public bool isAirstrike = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,16 @@ public class AttackDriver : MonoBehaviour
         gameObj = boxCollider.gameObject;
         boxCollider.enabled = false;
         gameObj.SetActive(false);
+    }
+
+    public void toggleAirstrike()
+    {
+        isAirstrike = !isAirstrike;
+    }
+
+    public void setAir(bool set)
+    {
+        isAirstrike = set;
     }
 
     public void SetIsAttackColliderOn(bool boolean)

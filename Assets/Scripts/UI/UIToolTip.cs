@@ -50,7 +50,7 @@ public class UIToolTip : MonoBehaviour
                 text.text = "Deal 25 Damage. 4 sec.";
                 break;
             case 22: // Airstrike
-                text.text = "Deal 80 damage to a single target. 8 sec.";
+                text.text = "CLICK DIRECTLY to deal 80 dmg. 8 Sec. ";
                 break;
             case 23: // Defend
                 text.text = "reduce damage -- dave pls add";

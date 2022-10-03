@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfMoveIndicator: {fileID: 6917421808561968885, guid: 5d177375133ba8d49a2aabbe481dbead, type: 3}
+  pfAirstrike: {fileID: 8407816409545713163, guid: 10d51f5d95a70c243a0cd9b61323b428, type: 3}
 --- !u!114 &-2760465826665326213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,6 +458,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1956624089301388672}
         m_TargetAssemblyTypeName: MouseOnTile, Assembly-CSharp
         m_MethodName: OrientAttackDriver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3252400435141899334}
+        m_TargetAssemblyTypeName: MoveIndicator, Assembly-CSharp
+        m_MethodName: WhyDoesThisHaveAnAttackMethod
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
