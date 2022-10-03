@@ -23,9 +23,11 @@ public class SendToHoverContext : MonoBehaviour
             // do special behavior for what type of enemy
             hoverContext.UpdateContext(10); // 10 refers to slime enemy type
             GameObject enemyObj = tileScript.GetCollisionObject();
-            // tmw they dont have a healthbar yet
-
-        } else
+            DamageableComponent dmgComp = enemyObj.GetComponentInChildren<DamageableComponent>();
+            hoverContext.currentEnemHP = dmgComp.GetCurrentHealth();
+            //hoverContext.currentEnemHPMax = dmgComp.
+        }
+        else
         {
             hoverContext.UpdateContext(state);
 

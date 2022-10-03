@@ -16,7 +16,9 @@ public class HoverContext : MonoBehaviour
     [SerializeField] GameObject uiObj;
     [SerializeField] TextMeshProUGUI uiText;
     [SerializeField] List<GameObject> imageList;
-                         
+    public int currentEnemHP = 0;
+    public int currentEnemHPMax = 100;
+
     void Start()
     {
         
@@ -55,7 +57,7 @@ public class HoverContext : MonoBehaviour
                 break;
             case 10:
                 uiObj.SetActive(true);
-                uiText.text = "Enemy : Slime. \nHealth ???/XXX";
+                uiText.text = "Enemy : Slime. \nHealth " + currentEnemHP + "/100";
                 DisableImages();
                 imageList[3].SetActive(true);
                 break;
