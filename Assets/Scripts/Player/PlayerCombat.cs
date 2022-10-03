@@ -6,10 +6,14 @@ using UnityEngine.Rendering.Universal;
 public class PlayerCombat : MonoBehaviour, IKillable
 {
     BoxCollider2D boxCollider;
+    GameObject attackCollider;
     DamageableComponent damageableComponent;
     GameObject[] neighborTiles;
     [SerializeField] int damagePerHit = 10;
     [SerializeField] private Light2D damageLight;
+
+    private float playerToMouseAngle = 0f;
+    Quaternion angle = new();
 
     private bool firstTime = true;  // this wil stop us from trying to access the grid before it exists
 
@@ -17,6 +21,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
     {
         damageableComponent = this.gameObject.AddComponent<DamageableComponent>();
         boxCollider = this.gameObject.GetComponent<BoxCollider2D>();
+        attackCollider = this.gameObject.transform.Find("AttackCollider").gameObject;
         damageLight.enabled = false;
     }
 
@@ -39,6 +44,30 @@ public class PlayerCombat : MonoBehaviour, IKillable
         {
             damageableComponent.TakeDamage(damagePerHit);
         }
+    }
+
+    public void OrientAttackCollider()
+    {
+        playerToMouseAngle = Mathf.Abs(Vector3.Angle(transform.position, Input.mousePosition));
+
+        if (playerToMouseAngle >= 0f && playerToMouseAngle < 90f)
+        {
+            angle.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (playerToMouseAngle >= 90f && playerToMouseAngle < 180f)
+        {
+            angle.eulerAngles = new Vector3(0, 0, 90);
+        }
+        else if (playerToMouseAngle >= 180f && playerToMouseAngle < 270f)
+        {
+            angle.eulerAngles = new Vector3(0, 0, 180);
+        }
+        else
+        {
+            angle.eulerAngles = new Vector3(0, 0, 270);
+        }
+
+        attackCollider.transform.rotation = angle;
     }
 
     public void EndPlayerTurn()
@@ -85,5 +114,7 @@ public class PlayerCombat : MonoBehaviour, IKillable
         {
             UpdateTiles();
         }
+
+        OrientAttackCollider();
     }
 }
