@@ -181,6 +181,9 @@ public class TerrainGen : MonoBehaviour
 
         if (failed || failed2)
         {
+            foreach (GameObject g in ret) {
+                Destroy(g);
+            }
             ret = CreateTerrain();
         }
         else {
@@ -204,6 +207,10 @@ public class TerrainGen : MonoBehaviour
                 }
             }
             catch (System.ArgumentOutOfRangeException) {
+                foreach (GameObject g in ret)
+                {
+                    Destroy(g);
+                }
                 ret = CreateTerrain();
             }
 
