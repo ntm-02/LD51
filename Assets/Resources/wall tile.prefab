@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4503974806223820080}
   - component: {fileID: 3275670745446456873}
-  - component: {fileID: 4279873621911262763}
   - component: {fileID: 2614493156267508186}
+  - component: {fileID: 6916666257656454309}
   m_Layer: 0
   m_Name: wall tile
   m_TagString: UnWalkable
@@ -86,27 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4279873621911262763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4482807181509003399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a887428638406d842893cebf57943322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathFromRoot: []
-  height: 0
-  gridPos: {x: 0, y: 0}
-  pathCost: 0
-  travelCost: 0
-  hasPlayer: 0
-  hasEnemy: 0
-  collisionObject: {fileID: 0}
-  type: 0
 --- !u!61 &2614493156267508186
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -133,3 +112,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &6916666257656454309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482807181509003399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a887428638406d842893cebf57943322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFromRoot: []
+  height: 0
+  gridPos: {x: 0, y: 0}
+  pathCost: 0
+  travelCost: 0
+  hasPlayer: 0
+  hasEnemy: 0
+  collisionObject: {fileID: 0}
+  type: 0

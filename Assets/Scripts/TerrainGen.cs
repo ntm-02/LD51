@@ -64,7 +64,7 @@ public class TerrainGen : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-        GameObject[,] output = CreateTerrain();
+        GameObject[,] output = CreateTerrain2();
 
 
     }
@@ -80,7 +80,7 @@ public class TerrainGen : MonoBehaviour
                 Tile temp = tiles[(int)(tiles.Count*Mathf.Clamp(change.Evaluate(CalcNoise(x,y)), 0, .99f))];
                 Quaternion zero = new();
                 zero.eulerAngles = Vector3.zero;
-                GameObject tileObj = Instantiate(mapBack[temp], new Vector3(x / 1.05f, y / 1.05f/*, -output[x,y].height/8*/), zero, transform);
+                GameObject tileObj = Instantiate(mapBack[temp], new Vector3(x / 1.05f, y / 1.05f), zero, transform);
                 tileObj.GetComponent<Tile>().gridPos = new Vector2(x, y);
                 ret[x, y] = tileObj; 
             }
@@ -219,7 +219,6 @@ public class TerrainGen : MonoBehaviour
         return ret;
     }
 
-
     //gen a perlin noise point
     private float CalcNoise(float x, float y)
     {
@@ -229,4 +228,184 @@ public class TerrainGen : MonoBehaviour
         return Mathf.PerlinNoise(xCoord, yCoord);
 
     }
+
+
+
+    public int avgRoomSize;
+
+    public int minRoomSize = 3;
+
+    public GameObject[,] CreateTerrain2() {
+
+        GameObject[,] ret = new GameObject[width+2, height+2];
+
+        List<Room> rooms = new()
+        {
+            new Room(0, 25, 25, 0)
+        };
+
+
+        for (int x = 0; x < 27; x++)
+        {
+            Quaternion zero = new();
+            zero.eulerAngles = Vector3.zero;
+            GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(x / 1.05f, 0 / 1.05f), zero, transform);
+            tileObj.GetComponent<Tile>().gridPos = new Vector2(x, 0);
+            ret[x, 0] = tileObj;
+
+            tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(x / 1.05f, 26 / 1.05f), zero, transform);
+            tileObj.GetComponent<Tile>().gridPos = new Vector2(x, 25);
+            ret[x, 25] = tileObj;
+        }
+
+        for (int y = 1; y < 27; y++)
+        {
+            Quaternion zero = new();
+            zero.eulerAngles = Vector3.zero;
+            GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(0 / 1.05f, y / 1.05f), zero, transform);
+            tileObj.GetComponent<Tile>().gridPos = new Vector2(0,y);
+            ret[0, y] = tileObj;
+
+            tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(26 / 1.05f, y / 1.05f), zero, transform);
+            tileObj.GetComponent<Tile>().gridPos = new Vector2(25,y);
+            ret[25, y] = tileObj;
+        }
+
+        double currAvgSize = rooms.Average((r)=>r.size);
+        bool willVert = false;
+
+        willVert = (int)(Random.value * 2) == 0;
+
+        //int n = 0;
+        while (currAvgSize > avgRoomSize) {
+            Room largest = rooms.Max();
+            //rooms.Sort();
+            //rooms.Reverse();
+            //Room largest = rooms[rooms.Count * (int)Mathf.Clamp(change.Evaluate(Random.value), 0, .99f)];
+            rooms.Remove(largest);
+
+            willVert = !willVert;
+
+            if (largest.width >= (2 * minRoomSize) + 1 && largest.height >= (2 * minRoomSize) + 1)
+            {
+                
+            }
+            else if (largest.width >= (2 * minRoomSize) + 1)
+            {
+                willVert = true;
+            }
+            else if (largest.height >= (2 * minRoomSize) + 1)
+            {
+                willVert = false;
+            }
+            else {
+                throw new System.Exception("Rooms cannot generate with current settings!");
+            }
+
+
+
+            //int numDivs = 1 + (int)(Random.value * 2);//1-3 cuts, 2-4 rooms      future implementation
+
+            //for (int x = numDivs; x > 0; x--) {
+            int wallInd = willVert ? Random.Range(largest.left + minRoomSize, largest.right - minRoomSize) : Random.Range(largest.bot + minRoomSize, largest.top - minRoomSize);
+                rooms.AddRange(largest.Split(this, ref ret, new Vector2Int(wallInd, willVert ? 0 : 1)));
+            //}
+
+            currAvgSize = rooms.Average((r) => r.size);
+
+            //print("iter: " + n + " " + willVert + " " + wallInd);
+
+            //n++;
+
+        }
+
+
+        return ret;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+public class Room : System.IComparable<Room>
+{
+
+    public int size;
+
+    public int left;
+    public int right;
+    public int bot;
+    public int top;
+
+    public int height;
+    public int width;
+
+    public Room(int left, int right, int top, int bottom) {
+        this.left = left;
+        this.right = right;
+        this.top = top;
+        this.bot = bottom;
+
+        height = top - bot;
+        width = right - left;
+
+        size = height * width;
+    }
+
+    public int CompareTo(Room room)
+    {
+        return size - room.size;
+    }
+
+    public List<Room> Split(TerrainGen parent, ref GameObject[,] map, Vector2Int along) {//coord, then (0 for vertical, 1 for horiz)
+
+
+        List<Room> ret = new();
+
+        bool isVertical = along.y == 0;
+
+        
+        if (isVertical)
+        {
+            ret.Add(new Room(left, along.x-1, top, bot));
+            ret.Add(new Room(along.x+1, right, top, bot));
+
+            for (int x = bot; x < top + (top != map.GetLength(1)-2 ? 1 : 0); x++) {
+                Quaternion zero = new();
+                zero.eulerAngles = Vector3.zero;
+                GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3((along.x+1) / 1.05f, (x+1) / 1.05f), zero, parent.transform);
+                tileObj.GetComponent<Tile>().gridPos = new Vector2(along.x, x);
+                map[along.x+1, x+1] = tileObj;
+            }
+        }
+        else {
+            ret.Add(new Room(left, right, along.x-1, bot));
+            ret.Add(new Room(left, right, top, along.x+1));
+
+
+            for (int x = left; x < right + (right != map.GetLength(1) - 2 ? 1 : 0); x++)
+            {
+                Quaternion zero = new();
+                zero.eulerAngles = Vector3.zero;
+                GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3((x+1) / 1.05f, (along.x+1) / 1.05f), zero, parent.transform);
+                tileObj.GetComponent<Tile>().gridPos = new Vector2(x, along.x);
+                map[x+1, along.x+1] = tileObj;
+            }
+        }
+
+        return ret;
+
+    }
+
+
 }
