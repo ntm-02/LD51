@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 
 //can be used to create terrain
@@ -234,6 +235,7 @@ public class TerrainGen : MonoBehaviour
     public int avgRoomSize;
 
     public int minRoomSize = 3;
+    public GameObject floorTile;
 
     public GameObject[,] CreateTerrain2() {
 
@@ -334,23 +336,6 @@ public class TerrainGen : MonoBehaviour
 
         }
 
-        /*GameObject floor = Resources.Load("plain") as GameObject;
-        Quaternion zero2 = new();
-        zero2.eulerAngles = Vector3.zero;
-        for (int x = 0; x < ret.GetLength(0); x++) {
-            for (int y = 0; y < ret.GetLength(1); y++) {
-                if (ret[x,y] == null)
-                {
-                    GameObject g = Instantiate(floor, new Vector3((x) / 1.05f, (y) / 1.05f), zero2, transform);
-                    g.GetComponent<Tile>().gridPos = new Vector2(x, y);
-                    ret[x, y] = g;
-                }
-                
-            }
-        }*/
-            
-
-
         if (failed)
         {
             Debug.Log("failure");
@@ -358,8 +343,30 @@ public class TerrainGen : MonoBehaviour
             {
                 Destroy(g);
             }
-            return CreateTerrain2();
+            ret = CreateTerrain2();
         }
+        else
+        {
+            Quaternion zero2 = new();
+            zero2.eulerAngles = Vector3.zero;
+            int tempW = ret.GetLength(0) - 1;
+            int tempH = ret.GetLength(1) - 1;
+            for (int x = 1; x < tempW; x++)
+            {
+                for (int y = 1; y < tempH; y++)
+                {
+                    if (ret[x, y] == null)
+                    {
+                        GameObject g = Instantiate(floorTile, new Vector3(x / 1.05f, y / 1.05f), zero2, transform);
+                        g.GetComponent<Tile>().gridPos = new Vector2(x, y);
+                        ret[x, y] = g;
+                    }
+
+                }
+            }
+        }
+
+        
 
 
 
