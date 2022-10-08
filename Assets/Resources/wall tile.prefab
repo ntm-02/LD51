@@ -132,4 +132,4 @@ MonoBehaviour:
   hasPlayer: 0
   hasEnemy: 0
   collisionObject: {fileID: 0}
-  type: 0
+  type: 3

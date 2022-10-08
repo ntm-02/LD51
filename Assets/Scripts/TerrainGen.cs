@@ -241,7 +241,7 @@ public class TerrainGen : MonoBehaviour
 
         List<Room> rooms = new()
         {
-            new Room(0, 25, 25, 0)
+            new Room(1, 25, 25, 1)
         };
 
 
@@ -249,33 +249,33 @@ public class TerrainGen : MonoBehaviour
         {
             Quaternion zero = new();
             zero.eulerAngles = Vector3.zero;
-            GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(x / 1.05f, 0 / 1.05f), zero, transform);
+            GameObject tileObj = Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(x / 1.05f, 0 / 1.05f), zero, transform);
             tileObj.GetComponent<Tile>().gridPos = new Vector2(x, 0);
             ret[x, 0] = tileObj;
 
-            tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(x / 1.05f, 26 / 1.05f), zero, transform);
-            tileObj.GetComponent<Tile>().gridPos = new Vector2(x, 25);
-            ret[x, 25] = tileObj;
+            tileObj = Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(x / 1.05f, 26 / 1.05f), zero, transform);
+            tileObj.GetComponent<Tile>().gridPos = new Vector2(x, 26);
+            ret[x, 26] = tileObj;
         }
 
-        for (int y = 1; y < 27; y++)
+        for (int y = 1; y < 26; y++)
         {
             Quaternion zero = new();
             zero.eulerAngles = Vector3.zero;
-            GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(0 / 1.05f, y / 1.05f), zero, transform);
+            GameObject tileObj = Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(0 / 1.05f, y / 1.05f), zero, transform);
             tileObj.GetComponent<Tile>().gridPos = new Vector2(0,y);
             ret[0, y] = tileObj;
 
-            tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(26 / 1.05f, y / 1.05f), zero, transform);
-            tileObj.GetComponent<Tile>().gridPos = new Vector2(25,y);
-            ret[25, y] = tileObj;
+            tileObj = Instantiate(Resources.Load("wall tile") as GameObject, new Vector3(26 / 1.05f, y / 1.05f), zero, transform);
+            tileObj.GetComponent<Tile>().gridPos = new Vector2(26,y);
+            ret[26, y] = tileObj;
         }
 
         double currAvgSize = rooms.Average((r)=>r.size);
         bool willVert = false;
 
         willVert = (int)(Random.value * 2) == 0;
-
+        bool failed = false;
         //int n = 0;
         while (currAvgSize > avgRoomSize) {
             Room largest = rooms.Max();
@@ -299,7 +299,8 @@ public class TerrainGen : MonoBehaviour
                 willVert = false;
             }
             else {
-                throw new System.Exception("Rooms cannot generate with current settings!");
+                failed = true;
+                break;
             }
 
 
@@ -318,6 +319,48 @@ public class TerrainGen : MonoBehaviour
             //n++;
 
         }
+
+        
+
+
+        foreach (Room room in rooms) {
+            try
+            {
+                room.AddDoors(ref ret, ref rooms);
+            }
+            catch (System.NullReferenceException e) {//dunno
+                failed = true;
+            }
+
+        }
+
+        /*GameObject floor = Resources.Load("plain") as GameObject;
+        Quaternion zero2 = new();
+        zero2.eulerAngles = Vector3.zero;
+        for (int x = 0; x < ret.GetLength(0); x++) {
+            for (int y = 0; y < ret.GetLength(1); y++) {
+                if (ret[x,y] == null)
+                {
+                    GameObject g = Instantiate(floor, new Vector3((x) / 1.05f, (y) / 1.05f), zero2, transform);
+                    g.GetComponent<Tile>().gridPos = new Vector2(x, y);
+                    ret[x, y] = g;
+                }
+                
+            }
+        }*/
+            
+
+
+        if (failed)
+        {
+            Debug.Log("failure");
+            foreach (GameObject g in ret)
+            {
+                Destroy(g);
+            }
+            return CreateTerrain2();
+        }
+
 
 
         return ret;
@@ -350,14 +393,16 @@ public class Room : System.IComparable<Room>
     public int height;
     public int width;
 
+    HashSet<Room> hasDoorsTo = new();
+
     public Room(int left, int right, int top, int bottom) {
         this.left = left;
         this.right = right;
         this.top = top;
         this.bot = bottom;
 
-        height = top - bot;
-        width = right - left;
+        height = top - bot + 1;
+        width = right - left + 1;
 
         size = height * width;
     }
@@ -366,6 +411,12 @@ public class Room : System.IComparable<Room>
     {
         return size - room.size;
     }
+
+    public bool ContainsIndex(Vector2Int index) {
+        return index.x <= right && index.x >= left && index.y >= bot && index.y <= top;
+    }
+
+
 
     public List<Room> Split(TerrainGen parent, ref GameObject[,] map, Vector2Int along) {//coord, then (0 for vertical, 1 for horiz)
 
@@ -380,12 +431,12 @@ public class Room : System.IComparable<Room>
             ret.Add(new Room(left, along.x-1, top, bot));
             ret.Add(new Room(along.x+1, right, top, bot));
 
-            for (int x = bot; x < top + (top != map.GetLength(1)-2 ? 1 : 0); x++) {
+            for (int x = bot; x < bot + height; x++) {
                 Quaternion zero = new();
                 zero.eulerAngles = Vector3.zero;
-                GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3((along.x+1) / 1.05f, (x+1) / 1.05f), zero, parent.transform);
+                GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3((along.x) / 1.05f, (x) / 1.05f), zero, parent.transform);
                 tileObj.GetComponent<Tile>().gridPos = new Vector2(along.x, x);
-                map[along.x+1, x+1] = tileObj;
+                map[along.x, x] = tileObj;
             }
         }
         else {
@@ -393,13 +444,13 @@ public class Room : System.IComparable<Room>
             ret.Add(new Room(left, right, top, along.x+1));
 
 
-            for (int x = left; x < right + (right != map.GetLength(1) - 2 ? 1 : 0); x++)
+            for (int x = left; x < left + width; x++)
             {
                 Quaternion zero = new();
                 zero.eulerAngles = Vector3.zero;
-                GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3((x+1) / 1.05f, (along.x+1) / 1.05f), zero, parent.transform);
+                GameObject tileObj = Object.Instantiate(Resources.Load("wall tile") as GameObject, new Vector3((x) / 1.05f, (along.x) / 1.05f), zero, parent.transform);
                 tileObj.GetComponent<Tile>().gridPos = new Vector2(x, along.x);
-                map[x+1, along.x+1] = tileObj;
+                map[x, along.x] = tileObj;
             }
         }
 
@@ -407,5 +458,126 @@ public class Room : System.IComparable<Room>
 
     }
 
+    public void AddDoors(ref GameObject[,] map, ref List<Room> rooms) {
+        if (bot > 1) {
+            List<Room> connectionsNeeded = new();
 
+            connectionsNeeded = rooms.FindAll((r)=> {
+
+                //left loe right and goe left or right
+                return r.top == bot - 2 && ((r.left <= right && r.left >= left) || (r.right <= right && r.right >=left));
+            
+            });
+
+            int revisedConnsNeeded = connectionsNeeded.Except(hasDoorsTo).Count();
+
+            for (int x = 0; x < revisedConnsNeeded; x++)
+            {
+                int doorPos = Random.Range(left, left + width);
+                while (hasDoorsTo.Any((r) => r.ContainsIndex(new Vector2Int(doorPos, bot - 2))) || (map[doorPos, bot - 2] != null && map[doorPos, bot - 2].GetComponent<Tile>().type == Tile.TileType.wall))
+                {
+                    //Debug.Log("reroll bot");
+                    doorPos = Random.Range(left, left + width);
+                }
+
+                Room newConn = rooms.Find((r) => r.ContainsIndex(new Vector2Int(doorPos, bot - 2)));
+                newConn.hasDoorsTo.Add(this);
+                hasDoorsTo.Add(newConn);
+                GameObject nDoor = map[doorPos, bot - 1];
+                Object.Destroy(nDoor);
+                map[doorPos, bot - 1] = null;
+            }
+        }
+        if (left > 1)
+        {
+            List<Room> connectionsNeeded = new();
+
+            connectionsNeeded = rooms.FindAll((r) => {
+
+                //top loe top and goe bot or right
+                return r.right == left - 2 && ((r.bot <= top && r.bot >= bot) || (r.top <= top && r.top >= bot));
+
+            });
+
+            int revisedConnsNeeded = connectionsNeeded.Except(hasDoorsTo).Count();
+
+            for (int x = 0; x < revisedConnsNeeded; x++)
+            {
+                int doorPos = Random.Range(bot, bot + height);
+                while (hasDoorsTo.Any((r) => r.ContainsIndex(new Vector2Int(left -2, doorPos))) || (map[left - 2, doorPos] != null && map[left - 2, doorPos].GetComponent<Tile>().type == Tile.TileType.wall))
+                {
+                    //Debug.Log("reroll left");
+                    doorPos = Random.Range(bot, bot + height);
+                }
+
+                Room newConn = rooms.Find((r) => r.ContainsIndex(new Vector2Int(left -2, doorPos)));
+                newConn.hasDoorsTo.Add(this);
+                hasDoorsTo.Add(newConn);
+                GameObject nDoor = map[left - 1, doorPos];
+                Object.Destroy(nDoor);
+                map[left - 1, doorPos] = null;
+            }
+        }
+        if (top < map.GetLength(0)-2)
+        {
+            List<Room> connectionsNeeded = new();
+
+            connectionsNeeded = rooms.FindAll((r) => {
+
+                //left loe right and goe left or right
+                return r.bot == top + 2 && ((r.left <= right && r.left >= left) || (r.right <= right && r.right >= left));
+
+            });
+
+            int revisedConnsNeeded = connectionsNeeded.Except(hasDoorsTo).Count();
+
+            for (int x = 0; x < revisedConnsNeeded; x++)
+            {
+                int doorPos = Random.Range(left, left + width);
+                while (hasDoorsTo.Any((r) => r.ContainsIndex(new Vector2Int(doorPos, top + 2))) || (map[doorPos, top + 2] != null && map[doorPos, top + 2].GetComponent<Tile>().type == Tile.TileType.wall))
+                {
+                    //Debug.Log("reroll top");
+                    doorPos = Random.Range(left, left + width);
+                }
+
+                Room newConn = rooms.Find((r) => r.ContainsIndex(new Vector2Int(doorPos, top + 2)));
+                newConn.hasDoorsTo.Add(this);
+                hasDoorsTo.Add(newConn);
+                GameObject nDoor = map[doorPos, top + 1];
+                Object.Destroy(nDoor);
+                map[doorPos, top + 1] = null;
+            }
+        }
+        if (right < map.GetLength(1) - 2)
+        {
+            List<Room> connectionsNeeded = new();
+
+            connectionsNeeded = rooms.FindAll((r) => {
+
+                //top loe top and goe bot or right
+                return r.left == right + 2 && ((r.bot <= top && r.bot >= bot) || (r.top <= top && r.top >= bot));
+
+            });
+
+            int revisedConnsNeeded = connectionsNeeded.Except(hasDoorsTo).Count();
+
+            for (int x = 0; x < revisedConnsNeeded; x++)
+            {
+                int doorPos = Random.Range(bot, bot + height);
+                while (hasDoorsTo.Any((r) => r.ContainsIndex(new Vector2Int(right + 2, doorPos))) || (map[right + 2, doorPos] != null && map[right + 2, doorPos].GetComponent<Tile>().type == Tile.TileType.wall))
+                {
+                    //Debug.Log("reroll right");
+                    doorPos = Random.Range(bot, bot + height);
+                }
+
+                Room newConn = rooms.Find((r) => r.ContainsIndex(new Vector2Int(right+2, doorPos)));
+                newConn.hasDoorsTo.Add(this);
+                hasDoorsTo.Add(newConn);
+
+                GameObject nDoor = map[right + 1, doorPos];
+                Object.Destroy(nDoor);
+                map[right + 1, doorPos] = null;
+            }
+        }
+    }
 }

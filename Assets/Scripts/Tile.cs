@@ -41,7 +41,7 @@ public class Tile : MonoBehaviour
     public GameObject collisionObject;
 
     public enum TileType { 
-        water, plain, mountain
+        water, plain, mountain, wall
     };
 
     public TileType type;
