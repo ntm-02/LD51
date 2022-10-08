@@ -506,10 +506,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4003887758392832980, guid: f1dbf4ffc6e8e8b4681791e67411529c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5312958454725130180, guid: f1dbf4ffc6e8e8b4681791e67411529c, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -1543,6 +1539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923aa7cb19962fa4684c96cea4d7a23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  airStrike: 0
   action: 2
   DeathCanvas: {fileID: 0}
 --- !u!4 &1694336018
