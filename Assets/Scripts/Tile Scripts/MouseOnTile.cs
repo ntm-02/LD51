@@ -12,20 +12,15 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     PlayerCombat playerCombat; // im sorry
 
     private bool mouseHovering = false;
-    /*public void GotToTile()
-    {
-        StartCoroutine(FindObjectOfType<TileBasedMovement>().MovePlayer(Vector3.up));
-    }*/
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameManager = FindObjectOfType<GameManager>();
-        playerCombat = FindObjectOfType<PlayerCombat>();
-    }
+
 
     // Update is called once per frame
     void Update()
     {
+        if (gameManager == null) {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
         // this no longer is called here
         //playerPos = FindObjectOfType<TileBasedMovement>().getGridPos();
         if (mouseHovering && !GameManager.IsPlayerMoving)
@@ -146,6 +141,10 @@ public class MouseOnTile : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
 
     public void OrientAttackDriver()
     {
+        if (playerCombat == null) {
+            playerCombat = FindObjectOfType<PlayerCombat>();
+        }
+
         playerCombat.OrientAttackCollider();
     }
 

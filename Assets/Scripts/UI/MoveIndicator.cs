@@ -7,16 +7,10 @@ public class MoveIndicator : MonoBehaviour
 {
     [SerializeField] private Transform pfMoveIndicator;
     [SerializeField] private Transform pfAirstrike;
-    GameManager gameManager;
     private Transform indicator;
     private Transform airstrike;
     private PlayerCombat attackDriver;
     // Start is called before the first frame update
-    void Start()
-    {
-        gameManager = FindObjectOfType<GameManager>();
-        attackDriver = FindObjectOfType<PlayerCombat>();
-    }
 
 
     // Decides if to do white or red
@@ -58,20 +52,23 @@ public class MoveIndicator : MonoBehaviour
 
     public void WhyDoesThisHaveAnAttackMethod()
     {
-        Debug.Log("test");
+        if (attackDriver == null) {
+            attackDriver = FindObjectOfType<PlayerCombat>();
+        }
+        //Debug.Log("test");
         if (attackDriver.isAirstrike)
         {
 
             if (PlayerTime.currPlayerTime >= 8)
             {
-                Debug.Log("FIRE!");
+                //Debug.Log("FIRE!");
                 Vector3 createPos = new Vector3(transform.position.x, (transform.position.y + 0.8f), transform.position.z);
                 airstrike = Instantiate(pfAirstrike, createPos, Quaternion.identity);        // instantiate here.
                 PlayerTime.currPlayerTime -= 8;
             }
         } else
         {
-            Debug.Log("Test");
+            //Debug.Log("Test");
         }
     }
 }

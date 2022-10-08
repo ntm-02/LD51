@@ -7,16 +7,17 @@ public class SendToHoverContext : MonoBehaviour
 {
     private HoverContext hoverContext;
     private Tile tileScript;
-    // Start is called before the first frame update
-    void Start()
-    {
-        hoverContext = FindObjectOfType<HoverContext>();
-        tileScript = GetComponent<Tile>();
 
-    }
+
 
     public void SetContextMenu(int state)
     {
+        if (hoverContext == null) {
+            hoverContext = FindObjectOfType<HoverContext>();
+        }
+        if (tileScript == null) {
+            tileScript = GetComponent<Tile>();
+        }
 
         if (tileScript.hasEnemy)
         {
